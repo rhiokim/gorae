@@ -1,0 +1,35 @@
+.chart {
+  /*border: 1px dotted #ddd;*/
+}
+
+.chart .background {
+  fill: RGB(230, 237, 244)
+}
+
+.chart .foreground {
+  fill: RGB(0, 181, 241)
+}
+
+.chart .label {
+  fill: RGB(0, 181, 241);
+  font: 18px sans-serif;
+  text-anchor: middle;
+  alignment-baseline: middle;
+}
+
+.chart-area {
+  text-align: center;
+}
+
+.chart-area h1,
+.chart-area h2,
+.chart-area h3 {
+  margin: 10px 0;
+}
+
+.chart-area p {
+  margin-top: 8px;
+}
+section:nth-child(3) .chart .label {
+  font: 13px sans-serif;
+}

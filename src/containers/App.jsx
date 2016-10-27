@@ -1,30 +1,22 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router';
 import Helmet from 'react-helmet';
+
 import {
   Layout, Header, Content, Navigation,
-  Icon, Grid, Cell, HeaderRow, Drawer
+  Icon, Grid, Cell, HeaderRow, Drawer, FABButton
 } from 'react-mdl';
+import EventMonitor from '../components/events/Monitor';
 
-import './App.css';
-
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      totalUserCount: 0
-    };
-  }
-
+// import FooterWrapper from 'components/Footer';
+export default class App extends Component {
   render() {
     const props = this.props;
-
     return (
       <Layout>
         <Helmet
           title={process.env.APP_NAME}
-          titleTemplate=" %s | React Boilerplate"
+          titleTemplate=" %s | Gorae UI"
           meta={[
             {name: 'description', content: process.env.APP_DESCRIPTION},
             {name: 'version', content: process.env.APP_VERSION},
@@ -34,10 +26,11 @@ export default class App extends React.Component {
             {name: 'license', content: process.env.APP_LICENSE}
           ]} />
         <Header>
-          <HeaderRow title={<Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>React Boilerplate</Link>}>
+          <HeaderRow title={<Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>Gorae</Link>}>
             <Navigation>
+              <Link to="a">Components</Link>
               <Link to="b">Templates</Link>
-              <a href="https://github.com/rhiokim/react-boilerplate">
+              <a href="https://github.com/tleunen/react-mdl">
                 <Icon name="link" style={{ marginRight: '8px', verticalAlign: 'middle' }} />
                   GitHub
               </a>
@@ -45,16 +38,26 @@ export default class App extends React.Component {
           </HeaderRow>
           <HeaderRow className="mdl-layout__header-second-menu">
             <Navigation>
-              <Link to="/">Dashboard</Link>
-              <Link to="/users">User</Link>
-              <Link to="/articles">Article</Link>
+              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/nodes">Nodes</Link>
+              <Link to="/containers">Containers</Link>
+              <Link to="/container-networks">Containers Network</Link>
+              <Link to="/images">Images</Link>
+              <Link to="/networks">Networks</Link>
+              <Link to="/volumes">Volumes</Link>
+              <Link to="/daemon">Daemon</Link>
+              <Link to="/events">Events</Link>
             </Navigation>
           </HeaderRow>
+          <FABButton ripple colored accent mini className="mdl-shadow--4dp" id="add">
+            <Icon name="add" />
+            <span className="visuallyhidden">Add</span>
+          </FABButton>
         </Header>
         <Drawer title="Title">
           <Navigation>
-            <a href="">Home</a>
-            <a href="">Profile</a>
+            <a href="">Docker</a>
+            <a href="">Registry</a>
             <a href="">Hub</a>
             <a href="">Link</a>
           </Navigation>
@@ -68,13 +71,15 @@ export default class App extends React.Component {
         </Content>
         {
           (() => {
-            if (process.env.NODE_ENV === 'development') {
+            if (process.env.NODE_ENV !== 'development') {
               const DevTools = require('../DevTools').default;
               return <DevTools />;
             }
           })()
         }
+        <EventMonitor />
       </Layout>
     );
   }
 }
+

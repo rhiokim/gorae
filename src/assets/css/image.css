@@ -1,0 +1,12 @@
+.image .mdl-card {
+  min-height: inherit;
+}
+
+.image .history .mdl-card .mdl-card__supporting-text {
+  margin: 10px 30px;
+}
+
+
+.image .mdl-layout__content section:not(:last-of-type) {
+  margin-bottom: 24px;
+}

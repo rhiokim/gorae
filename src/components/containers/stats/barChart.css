@@ -1,0 +1,83 @@
+.chart {
+  /*border: 1px dotted #ddd;*/
+}
+
+.chart .column {
+  fill: RGB(230, 237, 244);
+}
+
+.chart .bar {
+  fill: RGB(243, 42, 100);
+}
+
+.chart .axis text {
+  font: 9px sans-serif;
+}
+
+.chart .axis path,
+.chart .axis line {
+  fill: none;
+  stroke: RGB(230, 237, 244);
+  stroke-width: 1.5px;
+  shape-rendering: crispEdges;
+}
+
+.chart .axis path {
+  display: none;
+}
+
+svg.chart-bar {
+  width: 100% !important;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+}
+
+#tip.show {
+  animation-name: show;
+  animation-duration: 300ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+}
+
+#tip {
+  position: absolute;
+  margin-top: 0;
+  text-align: center;
+  text-transform: none;
+  background: rgb(34, 39, 42);
+  color: white;
+  padding: 10px 25px;
+  border-radius: 2px;
+  z-index: 100;
+  pointer-events: none;
+  font-size: .8em;
+  opacity: 0;
+}
+
+#tip:after {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+#tip:after {
+  border-color: rgba(0,0,0,0);
+  border-top-color: rgb(34, 39, 42);
+  border-width: 5px;
+  margin-left: -5px;
+}

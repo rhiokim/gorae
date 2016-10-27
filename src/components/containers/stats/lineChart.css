@@ -1,0 +1,29 @@
+.chart {
+  /*border: 1px dotted #ddd;*/
+}
+
+.chart .column {
+  fill: RGB(230, 237, 244);
+}
+
+.chart .line {
+  stroke: RGB(243, 42, 100);
+  stroke-width: 3px;
+  fill: none;
+}
+
+.chart .axis text {
+  font: 9px sans-serif;
+}
+
+.chart .axis path,
+.chart .axis line {
+  fill: none;
+  stroke: RGB(230, 237, 244);
+  stroke-width: 1.5px;
+  shape-rendering: crispEdges;
+}
+
+.chart .axis path {
+  display: none;
+}
