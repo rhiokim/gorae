@@ -1,6 +1,6 @@
 {
-  "name": "react-boilerplate",
-  "version": "0.1.0",
+  "name": "gorae",
+  "version": "0.0.1",
   "private": true,
   "devDependencies": {
     "autoprefixer": "6.4.1",
@@ -81,10 +81,10 @@
     "test": "node scripts/test.js --env=jsdom",
     "commit": "git cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
-    "docker:build": "docker build --tag react-app -f ./config/docker/Dockerfile . && npm run docker:images",
-    "docker:images": "docker images | grep react-app",
-    "docker:run": "docker run -dit -p 8081:80 --name react-app react-app:latest",
-    "docker:rm": "docker rm -f react-app",
+    "docker:build": "docker build --tag gorae -f ./config/docker/Dockerfile . && npm run docker:images",
+    "docker:images": "docker images | grep gorae",
+    "docker:run": "docker run -dit -p 8081:80 --name gorae gorae:latest",
+    "docker:rm": "docker rm -f gorae",
     "docker": "npm run docker:rm && npm run docker:build && npm run docker:run"
   },
   "jest": {
