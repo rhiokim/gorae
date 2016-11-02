@@ -44,6 +44,7 @@
     "object-assign": "4.1.0",
     "path-exists": "2.1.0",
     "postcss-loader": "1.0.0",
+    "pretty-bytes": "git://github.com/rhiokim/pretty-bytes.git",
     "promise": "7.1.1",
     "react-dev-utils": "^0.3.0",
     "recursive-readdir": "2.1.0",
@@ -58,8 +59,8 @@
     "validate-commit-msg": "^2.8.2",
     "webpack": "1.13.2",
     "webpack-dev-server": "1.16.2",
-    "whatwg-fetch": "1.0.0",
-    "webpack-manifest-plugin": "1.1.0"
+    "webpack-manifest-plugin": "1.1.0",
+    "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
     "axios": "^0.15.2",
