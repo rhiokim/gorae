@@ -27,10 +27,14 @@ class Nodes extends Component {
   }
 
   componentWillMount() {
-    setInterval(() => {
+    this._tid = setInterval(() => {
       // this.props.fetchNodes();
       this.props.fetchSwarm();
     }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._tid)
   }
 
   componentDidMount() {

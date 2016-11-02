@@ -28,9 +28,7 @@ export default class App extends Component {
         <Header>
           <HeaderRow title={<Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>Gorae</Link>}>
             <Navigation>
-              <Link to="a">Components</Link>
-              <Link to="b">Templates</Link>
-              <a href="https://github.com/tleunen/react-mdl">
+              <a href="https://github.com/rhiokim/gorae">
                 <Icon name="link" style={{ marginRight: '8px', verticalAlign: 'middle' }} />
                   GitHub
               </a>
@@ -39,7 +37,6 @@ export default class App extends Component {
           <HeaderRow className="mdl-layout__header-second-menu">
             <Navigation>
               <Link to="/dashboard">Dashboard</Link>
-              <Link to="/nodes">Nodes</Link>
               <Link to="/containers">Containers</Link>
               <Link to="/container-networks">Containers Network</Link>
               <Link to="/images">Images</Link>
