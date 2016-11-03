@@ -40,7 +40,7 @@ class Terminal extends Component {
     const self = this;
     const {container} = this.props;
 
-    socket = window.io('http://localhost:8081', {path: '/wetty/socket.io'});
+    socket = window.io(process.env.__API__, {path: '/wetty/socket.io'});
 
     socket.on('connect', () => {
       window.lib.init(() => {
