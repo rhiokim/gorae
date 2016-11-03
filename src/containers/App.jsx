@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+/* global pkginfo */
+import React from 'react';
 import {Link} from 'react-router';
 import Helmet from 'react-helmet';
 
@@ -9,21 +10,22 @@ import {
 import EventMonitor from '../components/events/Monitor';
 
 // import FooterWrapper from 'components/Footer';
-export default class App extends Component {
+export default class App extends React.Component {
   render() {
     const props = this.props;
     return (
       <Layout>
         <Helmet
-          title={process.env.APP_NAME}
+          title={pkginfo.name}
           titleTemplate=" %s | Gorae UI"
           meta={[
-            {name: 'description', content: process.env.APP_DESCRIPTION},
-            {name: 'version', content: process.env.APP_VERSION},
-            {name: 'product', content: process.env.APP_NAME},
-            {name: 'keywords', content: process.env.APP_KEYWORDS},
-            {name: 'author', content: process.env.APP_AUTHOR},
-            {name: 'license', content: process.env.APP_LICENSE}
+            {name: 'description', content: pkginfo.description},
+            {name: 'version', content: pkginfo.version},
+            {name: 'product', content: pkginfo.name},
+            {name: 'keywords', content: pkginfo.keywords},
+            {name: 'author', content: pkginfo.author},
+            {name: 'license', content: pkginfo.license},
+            {name: 'sha', content: pkginfo.sha}
           ]} />
         <Header>
           <HeaderRow title={<Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>Gorae</Link>}>
