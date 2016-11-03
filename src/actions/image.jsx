@@ -1,5 +1,6 @@
 /* global __API__ */
-import axios from 'axios';
+import docker from '../api/api';
+// import axios from 'axios';
 
 export const REQUEST_IMAGE = 'REQUEST_IMAGE';
 export const RECEIVE_IMAGE = 'RECEIVE_IMAGE';
@@ -9,9 +10,9 @@ export const REQUEST_IMAGE_HISTORY = 'REQUEST_IMAGE_HISTORY';
 export const RECEIVE_IMAGE_HISTORY = 'RECEIVE_IMAGE_HISTORY';
 export const RECEIVE_IMAGE_HISTORY_FAIL = 'RECEIVE_IMAGE_HISTORY_FAIL';
 
-const api = axios.create({
-  baseURL: __API__
-});
+// const api = axios.create({
+//   baseURL: __API__
+// });
 
 const requestImage = () => {
   return {
@@ -34,7 +35,7 @@ const fetchImageFail = () => ({
 export const fetchImage = id => dispatch => {
   dispatch(requestImage());
 
-  return api.get(`images/${id}/json`)
+  return docker.get(`images/${id}/json`)
     .then(response => {
       const {status, data} = response;
 
@@ -68,7 +69,7 @@ const fetchImageHistoryFail = () => ({
 export const fetchImageHistory = id => dispatch => {
   dispatch(requestImageHistory());
 
-  return api.get(`images/${id}/history`)
+  return docker.get(`images/${id}/history`)
     .then(response => {
       const {status, data} = response;
 

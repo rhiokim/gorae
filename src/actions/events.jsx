@@ -1,5 +1,6 @@
 /* global __API__ */
-import axios from 'axios';
+import docker from '../api/api';
+// import axios from 'axios';
 
 export const FILTER_EVENTS_TYPE = 'FILTER_EVENTS_TYPE';
 
@@ -11,9 +12,9 @@ export const REQUEST_EVENT_STREAM = 'REQUEST_EVENT_STREAM';
 export const RECEIVE_EVENT_STREAM = 'RECEIVE_EVENT_STREAM';
 export const RECEIVE_EVENT_STREAM_FAIL = 'RECEIVE_EVENT_STREAM_FAIL';
 
-const api = axios.create({
-  baseURL: __API__
-});
+// const api = axios.create({
+//   baseURL: __API__
+// });
 
 const requestEventStream = () => {
   return {
@@ -57,7 +58,7 @@ export let evtSource;
 
 export const connEventStream = () => dispatch => {
   if (evtSource === undefined) {
-    evtSource = new EventSource(`${__API__}events`);
+    evtSource = new EventSource(`${process.env.__API__}/api/events`);
 
     evtSource.onopen = e => {
       dispatch(requestEventStream(e));
@@ -65,7 +66,7 @@ export const connEventStream = () => dispatch => {
 
     evtSource.onerror = e => {
       if (e.currentTarget.readyState === EventSource.CONNECTING) {
-        evtSource = new EventSource(`${__API__}events`);
+        evtSource = new EventSource(`${process.env.__API__}/api/events`);
         return;
       }
       dispatch(fetchEventStreamFail(e));
@@ -84,7 +85,7 @@ export const connEventStream = () => dispatch => {
 export const fetchEvents = params => dispatch => {
   dispatch(requestEvents());
 
-  return api.get('events', {params: params})
+  return docker.get('events', {params: params})
     .then(response => {
       const {status, data} = response;
 

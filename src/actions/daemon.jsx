@@ -1,5 +1,6 @@
 /* global __API__ */
-import axios from 'axios';
+import docker from '../api/api';
+// import axios from 'axios';
 
 export const REQUEST_INFO = 'REQUEST_INFO';
 export const RECEIVE_INFO = 'RECEIVE_INFO';
@@ -9,9 +10,9 @@ export const REQUEST_VERSION = 'REQUEST_VERSION';
 export const RECEIVE_VERSION = 'RECEIVE_VERSION';
 export const RECEIVE_VERSION_FAIL = 'RECEIVE_VERSION_FAIL';
 
-const api = axios.create({
-  baseURL: __API__
-});
+// const api = axios.create({
+//   baseURL: __API__
+// });
 
 const requestInfo = () => {
   return {
@@ -52,7 +53,7 @@ const fetchVersionFail = () => ({
 export const fetchInfo = () => dispatch => {
   dispatch(requestInfo());
 
-  return api.get(`info`)
+  return docker.get(`info`)
     .then(response => {
       const {status, data} = response;
 
@@ -68,7 +69,7 @@ export const fetchInfo = () => dispatch => {
 export const fetchVersion = () => dispatch => {
   dispatch(requestVersion());
 
-  return api.get(`version`)
+  return docker.get(`version`)
     .then(response => {
       const {status, data} = response;
 

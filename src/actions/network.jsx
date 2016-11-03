@@ -1,13 +1,14 @@
 /* global __API__ */
-import axios from 'axios';
+import docker from '../api/api';
+// import axios from 'axios';
 
 export const REQUEST_NETWORK = 'REQUEST_NETWORK';
 export const RECEIVE_NETWORK = 'RECEIVE_NETWORK';
 export const RECEIVE_NETWORK_FAIL = 'RECEIVE_NETWORK_FAIL';
 
-const api = axios.create({
-  baseURL: __API__
-});
+// const api = axios.create({
+//   baseURL: __API__
+// });
 
 const requestNetwork = () => {
   return {
@@ -30,7 +31,7 @@ const fetchNetworkFail = () => ({
 export const fetchNetwork = id => dispatch => {
   dispatch(requestNetwork());
 
-  return api.get(`networks/${id}`)
+  return docker.get(`networks/${id}`)
     .then(response => {
       const {status, data} = response;
 

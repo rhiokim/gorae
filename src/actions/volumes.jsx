@@ -1,13 +1,14 @@
 /* global __API__ */
-import axios from 'axios';
+import docker from '../api/api';
+// import axios from 'axios';
 
 export const REQUEST_VOLUMES = 'REQUEST_VOLUMES';
 export const RECEIVE_VOLUMES = 'RECEIVE_VOLUMES';
 export const RECEIVE_VOLUMES_FAIL = 'RECEIVE_VOLUMES_FAIL';
 
-const api = axios.create({
-  baseURL: __API__
-});
+// const api = axios.create({
+//   baseURL: __API__
+// });
 
 const requestVolumes = () => {
   return {
@@ -31,7 +32,7 @@ const fetchVolumesFail = () => ({
 export const fetchVolumes = () => dispatch => {
   dispatch(requestVolumes());
 
-  return api.get('volumes')
+  return docker.get('volumes')
     .then(response => {
       const {status, data} = response;
 

@@ -1,13 +1,14 @@
 /* global __API__ */
-import axios from 'axios';
+import docker from '../api/api';
+// import axios from 'axios';
 
 export const REQUEST_CONTAINERS = 'REQUEST_CONTAINERS';
 export const RECEIVE_CONTAINERS = 'RECEIVE_CONTAINERS';
 export const RECEIVE_CONTAINERS_FAIL = 'RECEIVE_CONTAINERS_FAIL';
 
-const api = axios.create({
-  baseURL: __API__
-});
+// const api = axios.create({
+//   baseURL: __API__
+// });
 
 const requestContainers = () => {
   return {
@@ -30,7 +31,7 @@ const fetchContainersFail = () => ({
 export const fetchContainers = params => dispatch => {
   dispatch(requestContainers());
 
-  return api.get('containers/json', {
+  return docker.get('containers/json', {
     params: params
   })
     .then(response => {

@@ -34,7 +34,7 @@ class Volumes extends Component {
           <Header className={classNames('demo-header', getColorClass('grey', 100), getTextColorClass('grey', 800))} title="Volumes" scroll />
           <Content component="main">
             <Grid component="section" className="section--center" shadow={0} noSpacing>
-              <Cell col={12} table={12} phone={12} className={classNames('cell-title', getColorClass('grey', 800), getTextColorClass('grey', 100))}>
+              <Cell col={12} tablet={12} phone={12} className={classNames('cell-title', getColorClass('grey', 800), getTextColorClass('grey', 100))}>
                 <IconButton name="more_vert" id="demo-menu-lower-left" />
                 <Menu target="demo-menu-lower-left">
                   <MenuItem>Start</MenuItem>
@@ -48,12 +48,14 @@ class Volumes extends Component {
                 <Textfield value="" label="Search" expandable expandableIcon="search" />
               </Cell>
               <Cell col={12} tablet={12} phone={12}>
+                {!volumes ? <div style={{textAlign: 'center', paddingTop: '30px', height: '50px'}}>No Volumes</div> :
                 <DataTable selectable rowKeyColumn="Name" rows={volumes}>
                   <TableHeader name="Driver" tooltip="The amazing material name">Driver</TableHeader>
                   <TableHeader name="Name" cellFormatter={id => id.substr(0, 15)} tooltip="Number of materials">Name</TableHeader>
                   <TableHeader name="Mountpoint" className="td250" tooltip="Price pet unit">Mount Point</TableHeader>
                   <TableHeader name="Labels" cellFormatter={labels => Object.keys({}).join(',')} tooltip="">Lables</TableHeader>
                 </DataTable>
+                }
               </Cell>
             </Grid>
             <Footer size="mega">

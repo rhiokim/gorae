@@ -1,5 +1,6 @@
 /* global __API__ */
-import axios from 'axios';
+import docker from '../api/api';
+// import axios from 'axios';
 
 export const REQUEST_TASKS = 'REQUEST_TASKS';
 export const RECEIVE_TASKS = 'RECEIVE_TASKS';
@@ -17,9 +18,9 @@ export const REQUEST_SWARM = 'REQUEST_SWARM';
 export const RECEIVE_SWARM = 'RECEIVE_SWARM';
 export const RECEIVE_SWARM_FAIL = 'RECEIVE_SWARM_FAIL';
 
-const api = axios.create({
-  baseURL: __API__
-});
+// const api = axios.create({
+//   baseURL: __API__
+// });
 
 /**
  * SERVICES
@@ -46,7 +47,7 @@ const fetchNodesFail = () => ({
 export const fetchNodes = () => dispatch => {
   dispatch(requestNodes());
 
-  return api.get('nodes')
+  return docker.get('nodes')
     .then(response => {
       const {status, data} = response;
 
@@ -83,7 +84,7 @@ const fetchServicesFail = () => ({
 export const fetchServices = () => dispatch => {
   dispatch(requestServices());
 
-  return api.get('nodes')
+  return docker.get('nodes')
     .then(response => {
       const {status, data} = response;
 
@@ -120,7 +121,7 @@ const fetchTasksFail = () => ({
 export const fetchTasks = () => dispatch => {
   dispatch(requestTasks());
 
-  return api.get('tasks')
+  return docker.get('tasks')
     .then(response => {
       const {status, data} = response;
 
@@ -157,8 +158,8 @@ export const fetchTasks = () => dispatch => {
 
 export const fetchSwarm = () => dispatch => {
   Promise.all([
-    api.get('nodes'),
-    api.get('tasks')
+    docker.get('nodes'),
+    docker.get('tasks')
   ]).then(result => {
     const nodes = result[0].data;
     const tasks = result[1].data;

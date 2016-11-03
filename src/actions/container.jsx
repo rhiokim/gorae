@@ -1,5 +1,6 @@
 /* global __API__ */
-import axios from 'axios';
+import docker from '../api/api';
+// import axios from 'axios';
 
 export const REQUEST_CONTAINER = 'REQUEST_CONTAINER';
 export const RECEIVE_CONTAINER = 'RECEIVE_CONTAINER';
@@ -53,9 +54,9 @@ export const REQUEST_REMOVE = 'REQUEST_REMOVE';
 export const RECEIVE_REMOVE = 'RECEIVE_REMOVE';
 export const RECEIVE_REMOVE_FAIL = 'RECEIVE_REMOVE_FAIL';
 
-const api = axios.create({
-  baseURL: __API__
-});
+// const api = axios.create({
+//   baseURL: __API__
+// });
 
 const requestContainer = () => {
   return {
@@ -280,7 +281,7 @@ const fetchRemoveFail = () => ({
 export const fetchContainer = (id, params = {}) => dispatch => {
   dispatch(requestContainer());
 
-  return api.get(`containers/${id}/json`, {
+  return docker.get(`containers/${id}/json`, {
     params: params
   })
     .then(response => {
@@ -298,7 +299,7 @@ export const fetchContainer = (id, params = {}) => dispatch => {
 export const fetchContainerProcess = (id, params = {}) => dispatch => {
   dispatch(requestContainerProcess());
 
-  return api.get(`containers/${id}/top`, {
+  return docker.get(`containers/${id}/top`, {
     params: params
   })
     .then(response => {
@@ -316,7 +317,7 @@ export const fetchContainerProcess = (id, params = {}) => dispatch => {
 export const fetchContainerLogs = (id, params = {}) => dispatch => {
   dispatch(requestContainerLogs());
 
-  return api.get(`containers/${id}/logs`, {
+  return docker.get(`containers/${id}/logs`, {
     params: params
   })
     .then(response => {
@@ -340,7 +341,7 @@ export const fetchContainerLogs = (id, params = {}) => dispatch => {
 export const fetchContainerChanges = id => dispatch => {
   dispatch(requestContainerChanges());
 
-  return api.get(`containers/${id}/changes`)
+  return docker.get(`containers/${id}/changes`)
     .then(response => {
       const {status, data} = response;
 
@@ -356,7 +357,7 @@ export const fetchContainerChanges = id => dispatch => {
 export const fetchContainerStats = (id, params) => dispatch => {
   dispatch(requestContainerStats());
 
-  return api.get(`containers/${id}/stats`, {
+  return docker.get(`containers/${id}/stats`, {
     params: params
   })
     .then(response => {
@@ -374,7 +375,7 @@ export const fetchContainerStats = (id, params) => dispatch => {
 export const fetchCommits = (data, params) => dispatch => {
   dispatch(requestCommits());
 
-  return api.post('commit', data, {
+  return docker.post('commit', data, {
     params: params
   })
     .then(response => {
@@ -392,7 +393,7 @@ export const fetchCommits = (data, params) => dispatch => {
 export const stopContainer = (id, params = {t: 5}) => dispatch => {
   dispatch(requestStop());
 
-  return api.post(`containers/${id}/stop`, {id: id}, {params: params})
+  return docker.post(`containers/${id}/stop`, {id: id}, {params: params})
     .then(response => {
       const {status, data} = response;
 
@@ -408,7 +409,7 @@ export const stopContainer = (id, params = {t: 5}) => dispatch => {
 export const restartContainer = (id, params = {t: 5}) => dispatch => {
   dispatch(requestRestart());
 
-  return api.post(`containers/${id}/restart`, {id: id}, {params: params})
+  return docker.post(`containers/${id}/restart`, {id: id}, {params: params})
     .then(response => {
       const {status, data} = response;
 
@@ -424,7 +425,7 @@ export const restartContainer = (id, params = {t: 5}) => dispatch => {
 export const startContainer = (id, data) => dispatch => {
   dispatch(requestStart());
 
-  return api.post(`containers/${id}/start`, data)
+  return docker.post(`containers/${id}/start`, data)
     .then(response => {
       const {status, data} = response;
 
@@ -440,7 +441,7 @@ export const startContainer = (id, data) => dispatch => {
 export const killContainer = id => dispatch => {
   dispatch(requestKill());
 
-  return api.post(`containers/${id}/kill`)
+  return docker.post(`containers/${id}/kill`)
     .then(response => {
       const {status, data} = response;
 
@@ -456,7 +457,7 @@ export const killContainer = id => dispatch => {
 export const pauseContainer = id => dispatch => {
   dispatch(requestPause());
 
-  return api.post(`containers/${id}/pause`)
+  return docker.post(`containers/${id}/pause`)
     .then(response => {
       const {status, data} = response;
 
@@ -472,7 +473,7 @@ export const pauseContainer = id => dispatch => {
 export const unPauseContainer = id => dispatch => {
   dispatch(requestUnPause());
 
-  return api.post(`containers/${id}/unpause`)
+  return docker.post(`containers/${id}/unpause`)
     .then(response => {
       const {status, data} = response;
 
@@ -488,7 +489,7 @@ export const unPauseContainer = id => dispatch => {
 export const removeContainer = (id, params = {v: 1, force: true}) => dispatch => {
   dispatch(requestRemove());
 
-  return api.delete(`containers/${id}`, {}, {params: params})
+  return docker.delete(`containers/${id}`, {}, {params: params})
     .then(response => {
       const {status, data} = response;
 
