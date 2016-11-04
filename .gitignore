@@ -8,9 +8,12 @@ coverage
 
 # production
 build
+server
 
 # misc
 .DS_Store
 .env
 npm-debug.log
 v8.log
+yarn.lock
+.yarnclean
