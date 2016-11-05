@@ -8,6 +8,6 @@ COPY build www
 WORKDIR server
 RUN npm --quiet --no-color install
 
-EXPOSE 8081
+EXPOSE 8082
 
 CMD ["npm", "start"]

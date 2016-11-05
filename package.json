@@ -99,7 +99,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
     "docker:build": "docker build --tag gorae -f ./config/docker/Dockerfile . && npm run docker:images",
     "docker:images": "docker images | grep gorae",
-    "docker:run": "docker run -dit -p 8081:80 --name gorae gorae:latest",
+    "docker:run": "docker run -dit -p 8083:8082 -v /var/run/docker.sock:/var/run/docker.sock  --name gorae gorae:latest",
     "docker:rm": "docker rm -f gorae",
     "docker": "npm run docker:rm && npm run docker:build && npm run docker:run"
   },

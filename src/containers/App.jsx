@@ -69,12 +69,12 @@ export default class App extends React.Component {
           </Grid>
         </Content>
         {
-          (() => {
-            if (process.env.NODE_ENV !== 'development') {
-              const DevTools = require('../DevTools').default;
-              return <DevTools />;
-            }
-          })()
+          // (() => {
+          //   if (process.env.NODE_ENV === 'development') {
+          //     const DevTools = require('../DevTools').default;
+          //     return <DevTools />;
+          //   }
+          // })()
         }
         <EventMonitor />
       </Layout>
