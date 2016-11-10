@@ -1,4 +1,5 @@
 /* global __API__ */
+// DEPRECATED
 import docker from '../api/api';
 // import axios from 'axios';
 
