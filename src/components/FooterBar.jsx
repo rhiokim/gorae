@@ -1,16 +1,18 @@
-import React, {Component} from 'react';
+import React from 'react';
+import {Link} from 'react-router';
+import {
+  Footer, FooterSection, FooterLinkList,
+  FooterDropDownSection
+} from 'react-mdl';
 
-import { Footer, FooterSection, FooterLinkList,
-  FooterDropDownSection } from 'react-mdl';
-
-export default class FooterWrapper extends Component {
+export default class FooterBar extends React.Component {
   render() {
     return (
       <Footer size="mega">
         <FooterSection type="middle">
           <FooterDropDownSection title="Features">
             <FooterLinkList>
-              <a href="#">About</a>
+              <Link to="/about">About</Link>
               <a href="#">Terms</a>
               <a href="#">Partners</a>
               <a href="#">Updates</a>
@@ -42,7 +44,8 @@ export default class FooterWrapper extends Component {
         </FooterSection>
         <FooterSection type="bottom" logo="More Information">
           <FooterLinkList>
-            <a href="https://developers.google.com/web/starter-kit/">Web Starter Kit</a>
+            <Link to="/about">About</Link>
+            <a href="https://github.com/rhiokim/gorae-swarm">GitHub</a>
             <a href="#">Help</a>
             <a href="#">Privacy & Terms</a>
           </FooterLinkList>

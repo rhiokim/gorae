@@ -45,6 +45,11 @@ class Daemon extends Component {
     }
   }
 
+  componentDidMount() {
+    // dirty fix - https://github.com/react-mdl/react-mdl/issues/415#issuecomment-252508915
+    window.componentHandler.upgradeAllRegistered();
+  }
+
   render() {
     return (
       <div className={classNames('mdl-demo', 'mdl-base')}>
@@ -53,7 +58,7 @@ class Daemon extends Component {
             <Helmet title="Daemon" />
             <Header className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 800))} title="Daemon Detail" scroll />
 
-            <Grid component="section" className="container-detail section--center" shadow={0} noSpacing>
+            <Grid component="section" className="section--center" shadow={0} noSpacing>
               <Cell component={Card} col={12}>
                 <Tabs className="mb-20" activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
                   <Tab>Version</Tab>

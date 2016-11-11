@@ -6,7 +6,7 @@ export const REQUEST_CONTAINERS = 'REQUEST_CONTAINERS';
 export const RECEIVE_CONTAINERS = 'RECEIVE_CONTAINERS';
 export const RECEIVE_CONTAINERS_FAIL = 'RECEIVE_CONTAINERS_FAIL';
 
-export const FILTER_BY_NAME = 'FILTER_BY_NAME';
+export const CONTAINER_FILTER_BY_NAME = 'CONTAINER_FILTER_BY_NAME';
 // const api = axios.create({
 //   baseURL: __API__
 // });
@@ -30,7 +30,7 @@ const fetchContainersFail = () => ({
 });
 
 const _filterByName = name => ({
-  type: FILTER_BY_NAME,
+  type: CONTAINER_FILTER_BY_NAME,
   name: name
 })
 

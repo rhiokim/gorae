@@ -6,6 +6,8 @@ export const REQUEST_VOLUMES = 'REQUEST_VOLUMES';
 export const RECEIVE_VOLUMES = 'RECEIVE_VOLUMES';
 export const RECEIVE_VOLUMES_FAIL = 'RECEIVE_VOLUMES_FAIL';
 
+export const VOLUME_FILTER_BY_NAME = 'VOLUME_FILTER_BY_NAME';
+
 // const api = axios.create({
 //   baseURL: __API__
 // });
@@ -28,6 +30,15 @@ const receiveVolumes = data => {
 const fetchVolumesFail = () => ({
   type: RECEIVE_VOLUMES_FAIL
 });
+
+const _filterByName = name => ({
+  type: VOLUME_FILTER_BY_NAME,
+  name: name
+})
+
+export const filterByName = name => dispatch => {
+  dispatch(_filterByName(name));
+}
 
 export const fetchVolumes = () => dispatch => {
   dispatch(requestVolumes());

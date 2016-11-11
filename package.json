@@ -1,6 +1,16 @@
 {
   "name": "gorae",
-  "version": "0.0.2",
+  "version": "0.1.0",
+  "description": "The Gorae is a browser-based solution for managing a docker engine",
+  "keywords": [
+    "gorae",
+    "docker",
+    "swarm",
+    "node.js",
+    "react"
+  ],
+  "author": "Rhio Kim <rhio.kim@gmail.com>",
+  "license": "ISC",
   "private": true,
   "devDependencies": {
     "autoprefixer": "6.5.1",

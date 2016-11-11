@@ -2,7 +2,7 @@ import {createStore, applyMiddleware, combineReducers, compose} from 'redux';
 import thunk from 'redux-thunk';
 import {hashHistory} from 'react-router';
 import {routerMiddleware, routerReducer as routing} from 'react-router-redux';
-import {persistState} from 'redux-devtools';
+// import {persistState} from 'redux-devtools';
 import createLogger from 'redux-logger';
 import DevTools from '../DevTools';
 
@@ -53,9 +53,9 @@ const rootReducer = combineReducers({
 const enhancer = compose(
   applyMiddleware(thunk, router, logger),
   DevTools.instrument(),
-  persistState(
-    window.location.href.match(/[?&]_k=([^&]+)\b/)
-  )
+  // persistState(
+  //   window.location.href.match(/[?&]_k=([^&]+)\b/)
+  // )
 );
 
 const configureStore = initialState => {

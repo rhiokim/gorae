@@ -16,6 +16,15 @@ export default (state = initial, action) => {
         images: action.images
       });
       break;
+    case 'IMAGE_FILTER_BY_NAME':
+      const {name} = action;
+      const {images} = state;
+      const res = name
+        ? images.filter(image => image.RepoTags[0].indexOf(name) > -1)
+        : state.images ;
+      return Object.assign({}, state, {
+        filtered: res
+      });
     default:
       break;
   }

@@ -18,12 +18,12 @@ export default (state = initial, action) => {
       const lastOne = containers[containers.length - 1] || {};
       state = Object.assign({}, state, {
         isFetching: false,
-        containers: [...state.containers, ...containers],
+        containers: containers,
         last: lastOne.Id
       });
       break;
     }
-    case 'FILTER_BY_NAME':
+    case 'CONTAINER_FILTER_BY_NAME':
       const {name} = action;
       const {containers} = state;
       const res = name

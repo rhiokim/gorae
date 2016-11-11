@@ -14,6 +14,7 @@ import {
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 
 import * as Actions from '../actions/events';
+import FooterBarSimple from './FooterBarSimple';
 
 class Events extends Component {
   constructor(...args) {
@@ -63,14 +64,19 @@ class Events extends Component {
   renderActiveTabContent() {
   }
 
+  componentDidMount() {
+    // dirty fix - https://github.com/react-mdl/react-mdl/issues/415#issuecomment-252508915
+    window.componentHandler.upgradeAllRegistered();
+  }
+
   render() {
     const {events} = this.props;
     return (
-      <div className={classNames('image', 'mdl-demo', 'mdl-base')}>
-        <Helmet title="Event Stream" />
-        <Layout fixedHeader className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 700))}>
-          <Header className={classNames('demo-header', getColorClass('grey', 100), getTextColorClass('grey', 800))} title="Monitor Docker’s events" scroll />
+      <div className={classNames('mdl-demo', 'mdl-base')}>
+        <Layout className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 700))}>
           <Content component="main">
+            <Helmet title="Events" />
+            <Header className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 800))} title="Docker events log" scroll />
             <Grid component="section" className="container-detail section--center" shadow={0} noSpacing>
               <Cell component={Card} col={12}>
                 <Tabs className="mb-20" activeTab={this.state.activeTab} onChange={this.handleChangeTab} ripple>
@@ -99,15 +105,7 @@ class Events extends Component {
                 </section>
               </Cell>
             </Grid>
-            <Footer size="mega">
-              <FooterSection type="bottom" logo="More Information">
-                <FooterLinkList>
-                  <a href="https://developers.google.com/web/starter-kit/">Web Starter Kit</a>
-                  <a href="#">Help</a>
-                  <a href="#">Privacy & Terms</a>
-                </FooterLinkList>
-              </FooterSection>
-            </Footer>
+            <FooterBarSimple />
           </Content>
         </Layout>
       </div>

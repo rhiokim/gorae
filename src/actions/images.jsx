@@ -6,6 +6,8 @@ export const REQUEST_IMAGES = 'REQUEST_IMAGES';
 export const RECEIVE_IMAGES = 'RECEIVE_IMAGES';
 export const RECEIVE_IMAGES_FAIL = 'RECEIVE_IMAGES_FAIL';
 
+export const IMAGE_FILTER_BY_NAME = 'IMAGE_FILTER_BY_NAME';
+
 // const api = axios.create({
 //   baseURL: __API__
 // });
@@ -27,6 +29,15 @@ const receiveImages = data => {
 const fetchImagesFail = () => ({
   type: RECEIVE_IMAGES_FAIL
 });
+
+const _filterByName = name => ({
+  type: IMAGE_FILTER_BY_NAME,
+  name: name
+})
+
+export const filterByName = name => dispatch => {
+  dispatch(_filterByName(name));
+}
 
 export const fetchImages = params => dispatch => {
   dispatch(requestImages());

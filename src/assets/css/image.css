@@ -6,7 +6,16 @@
   margin: 10px 30px;
 }
 
-
 .image .mdl-layout__content section:not(:last-of-type) {
   margin-bottom: 24px;
+}
+
+.image-table td:first-of-type,
+.image-table th:first-of-type{
+  width: 50px;
+}
+
+.image-table td:last-of-type,
+.image-table th:last-of-type {
+  width: 110px;
 }
