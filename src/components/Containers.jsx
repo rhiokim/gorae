@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import prettyBytes from 'pretty-bytes';
 
 import {
-  Content, Header, Grid, Cell, Tooltip, Layout,
+  Content, Spinner, Grid, Cell, Tooltip, Layout,
   IconButton, Menu, MenuItem, DataTable, TableHeader, Textfield
 } from 'react-mdl';
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
@@ -71,6 +71,7 @@ class Containers extends Component {
                 <Textfield onChange={this.searchByName} label="Search" expandable expandableIcon="search" />
               </Cell>
               <Cell col={12} phone={12}>
+              {!containers.length ? <Spinner singleColor /> :
                 <DataTable selectable rowKeyColumn="id" rows={containers} shadow={0} className="container-table">
                   <TableHeader name="State" className="td50" cellFormatter={(state, row) => (
                     <Tooltip label={row.Status} position="top">
@@ -94,6 +95,7 @@ class Containers extends Component {
                   )}>Created</TableHeader>
                   <TableHeader numeric name="Size">Size</TableHeader>
                 </DataTable>
+                }
               </Cell>
             </Grid>
             <FooterBarSimple />

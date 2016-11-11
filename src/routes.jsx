@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, IndexRoute} from 'react-router';
+import {Route, IndexRoute, Redirect} from 'react-router';
 
 import App from './containers/App';
 // import Home from './containers/Home';
@@ -22,6 +22,9 @@ import About from './containers/About';
 export default (
   <Route path="/">
     <IndexRoute component={Home} />
+    <Redirect from="images/:id" to="dashboard/images/:id" />
+    <Redirect from="containers/:id" to="dashboard/containers/:id" />
+    <Redirect from="network/:id" to="dashboard/network/:id" />
     <Route path="dashboard" component={App}>
       <IndexRoute component={Dashboard} />
       <Route path="nodes" component={Nodes} />
