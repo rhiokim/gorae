@@ -5,8 +5,8 @@ import classNames from 'classnames';
 
 import {
   Tabs, Header, Tab, Content, Grid, Cell,
-  IconButton, Card, CardText,
-  Menu, MenuItem, Footer, FooterSection, FooterLinkList} from 'react-mdl';
+  IconButton, Card, CardText, Menu, MenuItem
+} from 'react-mdl';
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 
 import {Dialog} from '../../components/ui';
@@ -17,6 +17,7 @@ import Processes from './Processes';
 import Stats from './Stats';
 import Changes from './Changes';
 import Terminal from './Terminal';
+import FooterBarSimple from '../../components/FooterBarSimple';
 
 class ContainerDetail extends Component {
   constructor(...args) {
@@ -116,6 +117,11 @@ class ContainerDetail extends Component {
     }
   }
 
+  componentDidMount() {
+    // dirty fix - https://github.com/react-mdl/react-mdl/issues/415#issuecomment-252508915
+    window.componentHandler.upgradeAllRegistered();
+  }
+
   render() {
     return (
       <Content component="main">
@@ -147,15 +153,7 @@ class ContainerDetail extends Component {
             <MenuItem onClick={this.handleAction.bind(this, 'remove')}>Remove</MenuItem>
           </Menu>
         </Grid>
-        <Footer size="mega">
-          <FooterSection type="bottom" logo="More Information">
-            <FooterLinkList>
-              <a href="https://developers.google.com/web/starter-kit/">Web Starter Kit</a>
-              <a href="#">Help</a>
-              <a href="#">Privacy & Terms</a>
-            </FooterLinkList>
-          </FooterSection>
-        </Footer>
+        <FooterBarSimple />
       </Content>
     );
   }

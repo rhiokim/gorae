@@ -60,7 +60,6 @@ class Terminal extends Component {
           id: container.Id,
         });
         socket.on('ready', () => {
-          console.log('ready')
           socket.emit('resize', {
             col: term.screenSize.width,
             row: term.screenSize.height

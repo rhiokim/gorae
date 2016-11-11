@@ -303,19 +303,24 @@ html, body {
 /* table */
 td {
   max-width: 60px;
+  min-width: 30px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.td50 {
+  min-width: 50px;
+}
 .td100 {
   min-width: 100px;
 }
-
 .td150 {
   min-width: 150px;
 }
-
+.td200 {
+  min-width: 200px;
+}
 .td250 {
   min-width: 250px;
 }

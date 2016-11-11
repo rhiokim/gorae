@@ -6,3 +6,28 @@
   position: relative;
   padding: 20px 0;
 }
+
+/* container list */
+.mdl-data-table td:first-of-type, .mdl-data-table th:first-of-type {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.mdl-data-table td, .mdl-data-table th {
+  padding: 12px 6px 12px 6px;
+}
+
+.container-table td:first-of-type,
+.container-table th:first-of-type,
+.container-table th:nth-child(2) {
+  width: 50px;
+}
+
+.container-table td:last-of-type,
+.container-table th:last-of-type {
+  width: 100px;
+}
+
+.mdl-data-table__cell--non-numeric i.material-icons {
+  vertical-align: bottom;
+}

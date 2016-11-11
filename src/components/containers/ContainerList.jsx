@@ -2,63 +2,59 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
+import TimeAgo from 'react-timeago';
 import classNames from 'classnames';
+import prettyBytes from 'pretty-bytes';
 
-import {Content, Header, Grid, Cell, Button, Icon,
-  IconButton, Menu, MenuItem, Footer, FooterSection,
-  FooterLinkList, DataTable, TableHeader, Textfield} from 'react-mdl';
+import {
+  Content, Header, Grid, Cell, Tooltip,
+  IconButton, Menu, MenuItem, DataTable, TableHeader, Textfield
+} from 'react-mdl';
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 
+import {stringContainerPorts, stringLabel} from '../../helpers/helpers';
 import * as Actions from '../../actions/containers';
+import {StateIcon} from '../ui'
+import FooterBarSimple from '../FooterBarSimple';
 
 class ContainerList extends Component {
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
 
     this.handleMore = this.handleMore.bind(this);
+    this.searchByName = this.searchByName.bind(this);
 
     this.state = {
       params: {
-        all: 0,
-        limit: 20,
+        all: 1,
         size: 1,
         filters: {
         }
       }
     };
-    this.props.fetchContainers(this.state.params);
   }
 
   componentWillMount() {
-  }
-
-  componentDidMount() {
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      params: {
-        ...this.state.params,
-        before: nextProps.before
-      }
-    });
-  }
-
-  handleChange() {
+    this.props.fetchContainers(this.state.params);
   }
 
   handleMore() {
     this.props.fetchContainers(this.state.params);
   }
 
+  searchByName(e, val) {
+    const str = e.target.value;
+    this.props.filterByName(str);
+  }
+
   render() {
-    const {containers, before} = this.props;
+    const {containers} = this.props;
 
     return (
       <Content component="main">
         <Header className={classNames('demo-header', getColorClass('grey', 100), getTextColorClass('grey', 800))} title="Containers" scroll />
-        <Grid component="section" className="section--center" shadow={0} noSpacing>
-          <Cell col={12} phone={12} className={classNames('cell-title', getColorClass('grey', 800), getTextColorClass('grey', 100))}>
+        <Grid component="section" className="section--center" noSpacing>
+          <Cell col={12} phone={12} className={classNames('cell-title', getColorClass('light-blue', 800), getTextColorClass('grey', 100))}>
             <IconButton name="more_vert" id="demo-menu-lower-left" />
             <Menu target="demo-menu-lower-left">
               <MenuItem>Start</MenuItem>
@@ -69,53 +65,61 @@ class ContainerList extends Component {
               <MenuItem>Unpause</MenuItem>
               <MenuItem>Remove</MenuItem>
             </Menu>
-            <Textfield value="" label="Search" expandable expandableIcon="search" />
+            <Textfield onChange={this.searchByName} label="Search" expandable expandableIcon="search" />
           </Cell>
           <Cell col={12} phone={12}>
-            <DataTable selectable rowKeyColumn="id" rows={containers}>
-              <TableHeader name="Id" cellFormatter={id => id.substr(7, 12)} tooltip="The amazing material name">Id</TableHeader>
+            <DataTable selectable rowKeyColumn="id" rows={containers} shadow={0} className="container-table">
+              <TableHeader name="State" className="td50" cellFormatter={(state, row) => (
+                <Tooltip label={row.Status} position="top">
+                  <span><StateIcon state={state} /></span>
+                </Tooltip>
+              )}>Status</TableHeader>
+              <TableHeader name="Names" className="td150" cellFormatter={name => (
+                <Link to={`/containers/${name}`}>{name}</Link>
+              )}>Name</TableHeader>
+              <TableHeader name="Command">Command</TableHeader>
               <TableHeader name="Image" cellFormatter={image => (
-                <Link to={`/images/${image}`}>{image}</Link>
-              )} tooltip="Price pet unit">Image</TableHeader>
-              <TableHeader name="Command" tooltip="Number of materials">Command</TableHeader>
-              <TableHeader name="Created" tooltip="">Created</TableHeader>
-              <TableHeader name="Status" className="td150" tooltip="">Status</TableHeader>
-              <TableHeader name="Names" cellFormatter={name => {
-                name = name[0].substr(1);
-                return (
-                  <Link to={`/containers/${name}`}>{name}</Link>
-                );
-              }} tooltip="The amazing material name">Name</TableHeader>
-              <TableHeader name="Ports" cellFormatter={ports => {
-                const p = ports[0];
-                const port = p === undefined ? '' : `${p.IP}:${p.PublicPort}->${p.PrivatePort}/${p.Type}`;
-                return port;
-              }} className="td150" tooltip="The amazing material name">Ports</TableHeader>
-              <TableHeader name="Labels" cellFormatter={labels => Object.keys({}).join(',')} tooltip="">Lables</TableHeader>
+                <Link to={`/images/${image}`} title={image}>{image}</Link>
+              )}>Image</TableHeader>
+              <TableHeader name="Ports" className="td50" cellFormatter={ports => (
+                <Tooltip label={ports} position="top">
+                  <span>{ports}</span>
+                </Tooltip>
+              )}>Ports</TableHeader>
+              <TableHeader name="Created" cellFormatter={date => (
+                <TimeAgo date={date} />
+              )}>Created</TableHeader>
+              <TableHeader numeric name="Size">Size</TableHeader>
             </DataTable>
-            {before !== undefined
-              ? <Button className={classNames('bar', getColorClass('grey', 100), getTextColorClass('grey', 500))} ripple onClick={this.handleMore}><Icon name="add" /></Button>
-              : <Button className={classNames('bar', getColorClass('grey', 100), getTextColorClass('grey', 300))} disabled>Completed</Button>
-            }
           </Cell>
         </Grid>
-        <Footer size="mega">
-          <FooterSection type="bottom" logo="More Information">
-            <FooterLinkList>
-              <a href="https://developers.google.com/web/starter-kit/">Web Starter Kit</a>
-              <a href="#">Help</a>
-              <a href="#">Privacy & Terms</a>
-            </FooterLinkList>
-          </FooterSection>
-        </Footer>
+        <FooterBarSimple />
       </Content>
     );
   }
 }
 
+const filter = conatiners => {
+  return conatiners.map(container => {
+    const {Id, Image, Command, Created, Status, State, Names, Ports, Labels, SizeRootFs} = container;
+    return {
+    Id: Id,
+    Image: Image,
+    Command: Command,
+    Created: Created*1000,
+    Status: Status,
+    State: State,
+    Names: Names[0].substr(1),
+    Size: prettyBytes(SizeRootFs),
+    Ports: stringContainerPorts(Ports),
+    Labels: stringLabel(Labels)
+  }})
+}
+
 const mapStateToProps = state => ({
-  containers: state.containersReducer.containers,
-  before: state.containersReducer.before
+  _containers: state.containersReducer.containers,
+  containers: filter(state.containersReducer.filtered || state.containersReducer.containers),
+  last: state.containersReducer.last
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
