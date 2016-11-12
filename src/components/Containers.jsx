@@ -8,26 +8,31 @@ import classNames from 'classnames';
 import prettyBytes from 'pretty-bytes';
 
 import {
-  Content, Spinner, Grid, Cell, Tooltip, Layout,
+  Content, Spinner, Grid, Cell, Tooltip, Layout, Checkbox,
   IconButton, Menu, MenuItem, DataTable, TableHeader, Textfield
 } from 'react-mdl';
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 
 import {stringContainerPorts, stringLabel} from '../helpers/helpers';
-import * as Actions from '../actions/containers';
+import * as ContainerActions from '../actions/container';
+import * as ContainersActions from '../actions/containers';
 import {StateIcon} from './ui'
 import FooterBarSimple from './FooterBarSimple';
+import {Dialog} from '../components/ui';
 
 class Containers extends Component {
   constructor(props) {
     super(props);
 
     this.handleMore = this.handleMore.bind(this);
+    this.handleAction = this.handleAction.bind(this);
     this.searchByName = this.searchByName.bind(this);
+    this.handleDisplayAll = this.handleDisplayAll.bind(this);
+    this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
 
     this.state = {
       params: {
-        all: 1,
+        all: false,
         size: 1,
         filters: {
         }
@@ -48,6 +53,87 @@ class Containers extends Component {
     this.props.filterByName(str);
   }
 
+  handleAction(e) {
+    const {action} = e.target.dataset;
+    const containers = this.props._containers;
+    switch (action) {
+      case 'stop': {
+        this._selectedIndex.forEach(idx => {
+          const container = containers[idx];
+          this.props.stopContainer(container.Id);
+        })
+        break;
+      }
+      case 'start': {
+        this._selectedIndex.forEach(idx => {
+          const container = containers[idx];
+          console.log(container.Id)
+          this.props.startContainer(container.Id, {
+            id: container.Id
+          });
+        });
+        break;
+      }
+      case 'kill': {
+        this._selectedIndex.forEach(idx => {
+          const container = containers[idx];
+          this.props.killContainer(container.Id);
+        });
+        break;
+      }
+      case 'restart': {
+        this._selectedIndex.forEach(idx => {
+          const container = containers[idx];
+          this.props.restartContainer(container.Id);
+        });
+        break;
+      }
+      case 'pause': {
+        this._selectedIndex.forEach(idx => {
+          const container = containers[idx];
+          this.props.pauseContainer(container.Id);
+        });
+        break;
+      }
+      case 'unpause': {
+        this._selectedIndex.forEach(idx => {
+          const container = containers[idx];
+          this.props.unPauseContainer(container.Id);
+        });
+        break;
+      }
+      case 'remove': {
+        Dialog.warnConfirm({
+          title: 'Are you sure?',
+          text: 'You will not be able to recover this container!'
+        }, isConfirm => {
+          if (isConfirm) {
+            this._selectedIndex.forEach(idx => {
+              const container = containers[idx];
+              this.props.removeContainer(container.Id)
+            });
+          }
+        });
+        break;
+      }
+      default:
+        break;
+    }
+  }
+
+  handleSelectionChanged(val) {
+    this._selectedIndex = val;
+  }
+
+  handleDisplayAll(e) {
+    this.setState({
+      params: {
+        ...this.state.params,
+        all: e.target.checked
+      }
+    }, () => this.props.fetchContainers(this.state.params));
+  }
+
   render() {
     const {containers} = this.props;
 
@@ -58,21 +144,25 @@ class Containers extends Component {
           <Content component="main">
             <Grid component="section" className="section--center mt-40" noSpacing>
               <Cell col={12} phone={12} className={classNames('cell-title', getColorClass('light-blue', 800), getTextColorClass('grey', 100))}>
-                <IconButton name="more_vert" id="demo-menu-lower-left" />
-                <Menu target="demo-menu-lower-left">
-                  <MenuItem>Start</MenuItem>
-                  <MenuItem>Stop</MenuItem>
-                  <MenuItem>Restart</MenuItem>
-                  <MenuItem>Kill</MenuItem>
-                  <MenuItem>Pause</MenuItem>
-                  <MenuItem>Unpause</MenuItem>
-                  <MenuItem>Remove</MenuItem>
+                <IconButton name="more_vert" id="act" />
+                <Menu target="act" align="left" valign="bottom" onClick={this.handleAction}>
+                  <MenuItem data-action="start">Start</MenuItem>
+                  <MenuItem data-action="stop">Stop</MenuItem>
+                  <MenuItem data-action="kill">Kill</MenuItem>
+                  <MenuItem data-action="pause">Pause</MenuItem>
+                  <MenuItem data-action="unpause">Unpause</MenuItem>
+                  <MenuItem data-action="restart">Restart</MenuItem>
+                  <MenuItem data-action="remove">Remove</MenuItem>
                 </Menu>
+                <Checkbox label="Display all" className="chk-display-all" checked={this.state.params.all} onChange={this.handleDisplayAll} />
                 <Textfield onChange={this.searchByName} label="Search" expandable expandableIcon="search" />
               </Cell>
               <Cell col={12} phone={12}>
-              {!containers.length ? <Spinner singleColor /> :
-                <DataTable selectable rowKeyColumn="id" rows={containers} shadow={0} className="container-table">
+              {!containers.length
+                ? <div style={{width: '100%', textAlign: 'center', padding: '10px'}}>
+                    <Spinner singleColor />
+                  </div>
+                : <DataTable selectable sortable rowKeyColumn="id" rows={containers} shadow={0} className="container-table" onSelectionChanged={this.handleSelectionChanged}>
                   <TableHeader name="State" className="td50" cellFormatter={(state, row) => (
                     <Tooltip label={row.Status} position="top">
                       <span><StateIcon state={state} /></span>
@@ -129,6 +219,6 @@ const mapStateToProps = state => ({
   last: state.containersReducer.last
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({...ContainerActions, ...ContainersActions}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Containers);

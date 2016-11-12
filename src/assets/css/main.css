@@ -450,3 +450,21 @@ td {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
+
+/**
+ *
+ */
+.chk-display-all {
+  width: 100px;
+}
+
+.chk-display-all .mdl-checkbox__box-outline {
+  border: 2px solid rgba(255,255,255, 0.8);
+}
+
+.chk-display-all.mdl-checkbox.is-checked .mdl-checkbox__box-outline {
+  border: 2px solid rgba(255,255,255, 1);
+}
+.chk-display-all.mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
+  background-color: rgba(255,255,255, 1);
+}

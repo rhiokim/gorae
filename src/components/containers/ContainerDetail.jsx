@@ -1,10 +1,10 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 
 import {
-  Tabs, Header, Tab, Content, Grid, Cell,
+  Layout, Tabs, Header, Tab, Content, Grid, Cell,
   IconButton, Card, CardText, Menu, MenuItem
 } from 'react-mdl';
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
@@ -19,9 +19,11 @@ import Changes from './Changes';
 import Terminal from './Terminal';
 import FooterBarSimple from '../../components/FooterBarSimple';
 
-class ContainerDetail extends Component {
-  constructor(...args) {
-    super(...args);
+class ContainerDetail extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleAction = this.handleAction.bind(this);
 
     this.state = {
       activeTab: 0
@@ -33,9 +35,10 @@ class ContainerDetail extends Component {
     // this.props.fetchContainer(id);
   }
 
-  handleAction(eventKey: string) {
+  handleAction(e) {
+    const {action} = e.target.dataset;
     const {container, forms} = this.props;
-    switch (eventKey) {
+    switch (action) {
       case 'commit': {
         const newState = Object.assign({}, {
           ...container.Config,
@@ -124,37 +127,41 @@ class ContainerDetail extends Component {
 
   render() {
     return (
-      <Content component="main">
-        <Header className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 800))} title="Container Detail" scroll />
+      <div className={classNames('mdl-demo', 'mdl-base')}>
+        <Layout className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 700))}>
+          <Content component="main">
+            <Header className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 800))} title="Container Detail" scroll />
 
-        <Grid component="section" className="container-detail section--center" shadow={0} noSpacing>
-          <Cell component={Card} col={12}>
-            <Tabs className="mb-20" activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
-              <Tab>Basic Information</Tab>
-              <Tab>Logs</Tab>
-              <Tab>Process</Tab>
-              <Tab>Stats</Tab>
-              <Tab>Changes</Tab>
-              <Tab>Terminal</Tab>
-            </Tabs>
-            <CardText>
-              {this.renderActiveTabContent()}
-            </CardText>
-          </Cell>
-          <IconButton name="more_vert" id="act" ripple />
-          <Menu target="act" align="right" valign="bottom">
-            <MenuItem onClick={this.handleAction.bind(this, 'start')}>Start</MenuItem>
-            <MenuItem onClick={this.handleAction.bind(this, 'stop')}>Stop</MenuItem>
-            <MenuItem onClick={this.handleAction.bind(this, 'kill')}>Kill</MenuItem>
-            <MenuItem onClick={this.handleAction.bind(this, 'pause')}>Pause</MenuItem>
-            <MenuItem onClick={this.handleAction.bind(this, 'unpause')}>Unpause</MenuItem>
-            <MenuItem onClick={this.handleAction.bind(this, 'restart')}>Restart</MenuItem>
-            <MenuItem onClick={this.handleAction.bind(this, 'commit')}>Commit</MenuItem>
-            <MenuItem onClick={this.handleAction.bind(this, 'remove')}>Remove</MenuItem>
-          </Menu>
-        </Grid>
-        <FooterBarSimple />
-      </Content>
+            <Grid component="section" className="container-detail section--center" shadow={0} noSpacing>
+              <Cell component={Card} col={12}>
+                <Tabs className="mb-20" activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
+                  <Tab>Basic Information</Tab>
+                  <Tab>Logs</Tab>
+                  <Tab>Process</Tab>
+                  <Tab>Stats</Tab>
+                  <Tab>Changes</Tab>
+                  <Tab>Terminal</Tab>
+                </Tabs>
+                <CardText>
+                  {this.renderActiveTabContent()}
+                </CardText>
+              </Cell>
+              <IconButton name="more_vert" id="act" ripple />
+              <Menu target="act" align="right" valign="bottom" onClick={this.handleAction}>
+                <MenuItem data-action="start">Start</MenuItem>
+                <MenuItem data-action="stop">Stop</MenuItem>
+                <MenuItem data-action="kill">Kill</MenuItem>
+                <MenuItem data-action="pause">Pause</MenuItem>
+                <MenuItem data-action="unpause">Unpause</MenuItem>
+                <MenuItem data-action="restart">Restart</MenuItem>
+                <MenuItem data-action="commit">Commit</MenuItem>
+                <MenuItem data-action="remove">Remove</MenuItem>
+              </Menu>
+            </Grid>
+            <FooterBarSimple />
+          </Content>
+        </Layout>
+      </div>
     );
   }
 }
