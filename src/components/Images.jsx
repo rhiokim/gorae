@@ -8,86 +8,82 @@ import classNames from 'classnames';
 import prettyBytes from 'pretty-bytes';
 import {
   Layout, Content, Grid, Cell, DataTable, TableHeader,
-  IconButton, Menu, MenuItem, Textfield, Spinner
+  IconButton, Menu, MenuItem, Textfield, Spinner, Checkbox
 } from 'react-mdl';
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 
-import * as Actions from '../actions/images';
+import * as ImageActions from '../actions/images';
+import * as ImageRemoveAction from '../actions/image.remove';
 import FooterBarSimple from './FooterBarSimple';
-import {Dialog} from '../components/ui';
+import swal from './ui/dialog/Dialog';
 
 class Images extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleAction = this.handleAction.bind(this);
+    this.handleDisplayAll = this.handleDisplayAll.bind(this);
     this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
     this.searchByName = this.searchByName.bind(this);
 
     this.state = {
-      all: 0,
-      filters: {
-        dangling: true
+      params: {
+        all: false,
+        filters: [
+        ]
       }
     };
   }
 
   componentWillMount() {
-    this.props.fetchImages();
-  }
-
-  handleSelectionChanged(val) {
+    this.props.fetchImages(this.state.params);
   }
 
   handleAction(e) {
     const {action} = e.target.dataset;
-    const {container, forms} = this.props;
+    const {images} = this.props;
     switch (action) {
-      case 'commit': {
-        const newState = Object.assign({}, {
-          ...container.Config,
-          Env: forms.env
-        });
-        this.props.fetchCommits(newState, {
-          container: container.Id,
-          tag: container.Config.Image
-        });
-        break;
-      }
-      case 'stop': {
-        this.props.stopContainer(container.Id);
-        break;
-      }
-      case 'start': {
-        this.props.startContainer(container.Id, {
-          HostConfig: container.HostConfig,
-          id: container.Id
-        });
-        break;
-      }
-      case 'kill': {
-        this.props.killContainer(container.Id);
-        break;
-      }
-      case 'restart': {
-        this.props.restartContainer(container.Id);
-        break;
-      }
-      case 'pause': {
-        this.props.pauseContainer(container.Id);
-        break;
-      }
-      case 'unpause': {
-        this.props.unPauseContainer(container.Id);
-        break;
-      }
       case 'remove': {
-        Dialog.warnConfirm({
+        swal.warnConfirm({
           title: 'Are you sure?',
-          text: 'You will not be able to recover this container!'
+          text: 'You will not be able to recover this image!'
         }, isConfirm => {
           if (isConfirm) {
-            this.props.removeContainer(container.Id)
+            this._selectedIndex.forEach(idx => {
+              const image = images[idx];
+              this.props.removeImage(image.Id)
+                .then(() => this.props.fetchImages(this.state.params));
+            });
+          }
+        });
+        break;
+      }
+      case 'removef': {
+        swal.warnConfirm({
+          title: 'Are you sure?',
+          text: 'You will not be able to recover this image!'
+        }, isConfirm => {
+          if (isConfirm) {
+            this._selectedIndex.forEach(idx => {
+              const image = images[idx];
+              this.props.removeImage(image.Id, {force: true})
+                .then(() => this.props.fetchImages(this.state.params));
+            });
+          }
+        });
+        break;
+      }
+      case 'removep': {
+        swal.warnConfirm({
+          title: 'Are you sure?',
+          text: 'You will not be able to recover this image!'
+        }, isConfirm => {
+          if (isConfirm) {
+            this._selectedIndex.forEach(idx => {
+              const image = images[idx];
+              this.props.removeImage(image.Id, {noprune: true})
+                .then(() => this.props.fetchImages(this.state.params));
+            });
           }
         });
         break;
@@ -95,6 +91,19 @@ class Images extends React.Component {
       default:
         break;
     }
+  }
+
+  handleSelectionChanged(val) {
+    this._selectedIndex = val;
+  }
+
+  handleDisplayAll(e) {
+    this.setState({
+      params: {
+        ...this.state.params,
+        all: e.target.checked
+      }
+    }, () => this.props.fetchImages(this.state.params));
   }
 
   searchByName(e, val) {
@@ -113,15 +122,13 @@ class Images extends React.Component {
               <Cell col={12} phone={12} className={classNames('cell-title', getColorClass('teal', 800), getTextColorClass('grey', 100))}>
                 <IconButton name="more_vert" id="act" />
                 <Menu target="act" align="left" valign="bottom" onClick={this.handleAction}>
-                  <MenuItem data-action="start">Start</MenuItem>
-                  <MenuItem data-action="stop">Stop</MenuItem>
-                  <MenuItem data-action="kill">Kill</MenuItem>
-                  <MenuItem data-action="pause">Pause</MenuItem>
-                  <MenuItem data-action="unpause">Unpause</MenuItem>
-                  <MenuItem data-action="restart">Restart</MenuItem>
-                  <MenuItem data-action="commit">Commit</MenuItem>
                   <MenuItem data-action="remove">Remove</MenuItem>
+                  <MenuItem data-action="removef">Remove <small>(--force)</small></MenuItem>
+                  <MenuItem data-action="removep">Remove <small>(--no-prune)</small></MenuItem>
+                  <MenuItem data-action="dangling">Remove Unsafe Image <small>(dangling=true)</small></MenuItem>
                 </Menu>
+                <span>{images.length} images</span> |&nbsp;
+                <Checkbox label="Display all" className="chk-display-all" checked={this.state.params.all} onChange={this.handleDisplayAll} />
                 <Textfield onChange={this.searchByName} label="Search" expandable expandableIcon="search" />
               </Cell>
               <Cell col={12} phone={12}>
@@ -129,13 +136,16 @@ class Images extends React.Component {
                 ? <div style={{width: '100%', textAlign: 'center', padding: '10px'}}>
                     <Spinner singleColor />
                   </div>
-                : <DataTable selectable sortable rowKeyColumn="id" rows={images} shadow={0} className="image-table">
+                : <DataTable selectable sortable rowKeyColumn="id" rows={images} shadow={0} className="image-table" onSelectionChanged={this.handleSelectionChanged}>
                   <TableHeader name="RepoTags" className="td50" cellFormatter={(repo, row) => (
                     <Link to={`/images/${row.Id}`}>{repo}</Link>
                   )}>Repository</TableHeader>
+                  <TableHeader name="Id" cellFormatter={id => (
+                    <Link to={`/images/${id}`}>{id.substr(7, 12)}</Link>
+                  )}>Image Id</TableHeader>
                   <TableHeader name="ParentId" cellFormatter={id => (
                     <Link to={`/images/${id}`}>{id.substr(7, 12)}</Link>
-                  )}>Parent</TableHeader>
+                  )}>Parent Id</TableHeader>
                   <TableHeader numeric name="VirtualSize">Virtual Size</TableHeader>
                   <TableHeader name="Created" cellFormatter={date => (
                       <TimeAgo date={date} />
@@ -170,6 +180,6 @@ const mapStateToProps = state => ({
   images: filter(state.imagesReducer.filtered ||state.imagesReducer.images)
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({...ImageActions, ...ImageRemoveAction}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Images);

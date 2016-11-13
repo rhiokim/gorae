@@ -20,6 +20,7 @@ import nodesReducer from '../reducers/nodes';
 import servicesReducer from '../reducers/services';
 import tasksReducer from '../reducers/tasks';
 import formReducer from '../reducers/form';
+import notifierReducer from '../reducers/notifier';
 
 const router = routerMiddleware(hashHistory);
 
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   servicesReducer: servicesReducer,
   tasksReducer: tasksReducer,
   formReducer: formReducer,
+  notifierReducer: notifierReducer,
   routing: routing,
 });
 

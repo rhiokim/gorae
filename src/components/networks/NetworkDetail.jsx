@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Helmet from 'react-helmet';
 import {
   Layout, Header, Tab, Tabs, Content, Grid, Cell,
-  Icon, Card, CardText
+  Card, CardText
 } from 'react-mdl';
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 

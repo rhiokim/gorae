@@ -25,6 +25,9 @@ export default (state = initial, action) => {
       return Object.assign({}, state, {
         filtered: res
       });
+    case 'SUCCESS_REMOVE_IMAGE':
+        console.log(action.images)
+      break;
     default:
       break;
   }

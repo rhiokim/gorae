@@ -34,8 +34,7 @@ class Containers extends Component {
       params: {
         all: false,
         size: 1,
-        filters: {
-        }
+        filters: []
       }
     };
   }
@@ -154,6 +153,7 @@ class Containers extends Component {
                   <MenuItem data-action="restart">Restart</MenuItem>
                   <MenuItem data-action="remove">Remove</MenuItem>
                 </Menu>
+                <span>{containers.length} containers</span> |&nbsp;
                 <Checkbox label="Display all" className="chk-display-all" checked={this.state.params.all} onChange={this.handleDisplayAll} />
                 <Textfield onChange={this.searchByName} label="Search" expandable expandableIcon="search" />
               </Cell>

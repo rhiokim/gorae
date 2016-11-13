@@ -8,8 +8,8 @@ import {
 
 import EventMonitor from '../components/events/Monitor';
 import HeaderBarSimple from '../components/HeaderBarSimple';
+import Notifier from '../components/notifier/Snack';
 import {SideBar} from '../components/SideBar';
-
 // import FooterWrapper from 'components/Footer';
 export default class App extends React.Component {
   render() {
@@ -39,6 +39,7 @@ export default class App extends React.Component {
           //   }
           // })()
         }
+        <Notifier />
         <EventMonitor />
       </Layout>
     );

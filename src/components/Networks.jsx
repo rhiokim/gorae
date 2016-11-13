@@ -1,21 +1,21 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {bindActionCreators} from 'redux';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import Helmet from 'react-helmet';
-import { Layout, Header, Content, Grid, Cell,
-  IconButton, DataTable, TableHeader, Textfield,
-  Menu, MenuItem, Footer, FooterSection, FooterLinkList,
-  } from 'react-mdl';
+import {
+  Layout, Content, Grid, Cell,
+  IconButton, DataTable, TableHeader, Textfield, Menu, MenuItem
+} from 'react-mdl';
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 
 import * as Actions from '../actions/networks';
 import FooterBarSimple from './FooterBarSimple';
 
-class Networks extends Component {
-  constructor(...args) {
-    super(...args);
+class Networks extends React.Component {
+  constructor(props) {
+    super(props);
 
     this.searchByName = this.searchByName.bind(this);
 

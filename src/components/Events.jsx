@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {bindActionCreators} from 'redux';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
@@ -9,16 +9,16 @@ import Helmet from 'react-helmet';
 
 import {
   Layout, Header, Content, Grid, Cell, DataTable, TableHeader,
-  Tabs, Tab, Card, Footer, FooterSection, FooterLinkList, CardText
-  } from 'react-mdl';
+  Tabs, Tab, Card, CardText
+} from 'react-mdl';
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 
 import * as Actions from '../actions/events';
 import FooterBarSimple from './FooterBarSimple';
 
-class Events extends Component {
-  constructor(...args) {
-    super(...args);
+class Events extends React.Component {
+  constructor(props) {
+    super(props);
 
     this.handleChangeTab = this.handleChangeTab.bind(this);
 

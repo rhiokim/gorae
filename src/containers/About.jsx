@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import classNames from 'classnames';
 import {
-  Layout, Header, Content, Grid, Cell, Textfield
+  Layout, Header, Content, Grid, Cell
 } from 'react-mdl';
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 
@@ -21,13 +21,13 @@ export default class About extends React.Component {
             <Cell col={2} hidePhone hideTablet />
             <Cell col={8} shadow={2} className={classNames('demo-content', getColorClass('white'), getTextColorClass('grey', 800))}>
                 <h3>What is the Gorae?</h3>
-                <img src="./assets/images/docker.jpg" className="mb-20" style={{width: '100%'}}/>
+                <img src="./assets/images/docker.jpg" className="mb-20" alt="docker" style={{width: '100%'}}/>
 
                 <p>Cillum dolor esse sit incididunt velit eiusmod magna ad nostrud officia aute dolor dolor. Magna esse ullamco pariatur adipisicing consectetur eu commodo officia. Ex cillum consequat mollit minim elit est deserunt occaecat nisi amet. Quis aliqua nostrud Lorem occaecat sunt. Eiusmod quis amet ullamco aliquip dolore ut incididunt duis adipisicing. Elit consequat nisi eiusmod aute ipsum sunt veniam do est. Occaecat mollit aliquip ut proident consectetur amet ex dolore consectetur aliqua elit.</p>
 
                 <p>Cillum dolor esse sit incididunt velit eiusmod magna ad nostrud officia aute dolor dolor. Magna esse ullamco pariatur adipisicing consectetur eu commodo officia. Ex cillum consequat mollit minim elit est deserunt occaecat nisi amet. Quis aliqua nostrud Lorem occaecat sunt. Eiusmod quis amet ullamco aliquip dolore ut incididunt duis adipisicing. Elit consequat nisi eiusmod aute ipsum sunt veniam do est. Occaecat mollit aliquip ut proident consectetur amet ex dolore consectetur aliqua elit.</p>
 
-                <img src="./assets/images/docker-panel2.png" style={{width: '100%'}}/>
+                <img src="./assets/images/docker-panel2.png" alt="docker" style={{width: '100%'}}/>
 
                 <h3>How to install MDL</h3>
                 <p>Cillum dolor esse sit incididunt velit eiusmod magna ad nostrud officia aute dolor dolor. Magna esse ullamco pariatur adipisicing consectetur eu commodo officia. Ex cillum consequat mollit minim elit est deserunt occaecat nisi amet. Quis aliqua nostrud Lorem occaecat sunt. Eiusmod quis amet ullamco aliquip dolore ut incididunt duis adipisicing. Elit consequat nisi eiusmod aute ipsum sunt veniam do est. Occaecat mollit aliquip ut proident consectetur amet ex dolore consectetur aliqua elit.</p>
