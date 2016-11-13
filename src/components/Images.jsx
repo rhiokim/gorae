@@ -14,6 +14,7 @@ import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 
 import * as ImageActions from '../actions/images';
 import * as ImageRemoveAction from '../actions/image.remove';
+import ImagePull from './images/Pull';
 import FooterBarSimple from './FooterBarSimple';
 import swal from './ui/dialog/Dialog';
 
@@ -23,10 +24,12 @@ class Images extends React.Component {
 
     this.handleAction = this.handleAction.bind(this);
     this.handleDisplayAll = this.handleDisplayAll.bind(this);
+    this.handleSuccessPull = this.handleSuccessPull.bind(this);
     this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
     this.searchByName = this.searchByName.bind(this);
 
     this.state = {
+      openImagePullDialog: false,
       params: {
         all: false,
         filters: [
@@ -42,7 +45,16 @@ class Images extends React.Component {
   handleAction(e) {
     const {action} = e.target.dataset;
     const {images} = this.props;
+console.log(e)
+    e.preventDefault();
+
     switch (action) {
+      case 'pull': {
+        this.setState({openImagePullDialog: true}, () => {
+        console.log('openImagePullDialog', this.state.openImagePullDialog)
+        });
+        break;
+      }
       case 'remove': {
         swal.warnConfirm({
           title: 'Are you sure?',
@@ -106,6 +118,11 @@ class Images extends React.Component {
     }, () => this.props.fetchImages(this.state.params));
   }
 
+  handleSuccessPull(res) {
+    this.setState({openImagePullDialog: false});
+    this.props.fetchImages(this.state.params);
+  }
+
   searchByName(e, val) {
     const str = e.target.value;
     this.props.filterByName(str);
@@ -122,12 +139,13 @@ class Images extends React.Component {
               <Cell col={12} phone={12} className={classNames('cell-title', getColorClass('teal', 800), getTextColorClass('grey', 100))}>
                 <IconButton name="more_vert" id="act" />
                 <Menu target="act" align="left" valign="bottom" onClick={this.handleAction}>
+                  <MenuItem data-action="pull">Pull <small data-action="pull">from Docker Hub</small></MenuItem>
                   <MenuItem data-action="remove">Remove</MenuItem>
-                  <MenuItem data-action="removef">Remove <small>(--force)</small></MenuItem>
-                  <MenuItem data-action="removep">Remove <small>(--no-prune)</small></MenuItem>
-                  <MenuItem data-action="dangling">Remove Unsafe Image <small>(dangling=true)</small></MenuItem>
+                  <MenuItem data-action="removef">Remove <small data-action="removef">(--force)</small></MenuItem>
+                  <MenuItem data-action="removep">Remove <small data-action="removep">(--no-prune)</small></MenuItem>
+                  <MenuItem data-action="dangling" disabled>Remove Unsafe Image <small data-action="dangling">(dangling=true)</small></MenuItem>
                 </Menu>
-                <span>{images.length} images</span> |&nbsp;
+                <span>total: {images.length} images</span> |&nbsp;
                 <Checkbox label="Display all" className="chk-display-all" checked={this.state.params.all} onChange={this.handleDisplayAll} />
                 <Textfield onChange={this.searchByName} label="Search" expandable expandableIcon="search" />
               </Cell>
@@ -157,6 +175,13 @@ class Images extends React.Component {
             <FooterBarSimple />
           </Content>
         </Layout>
+        {this.state.openImagePullDialog
+          ? <ImagePull
+          onCancel={() => this.setState({openImagePullDialog: false})}
+          onSuccessPull={this.handleSuccessPull}
+          style={{width: '600px'}} />
+          : ''
+        }
       </div>
     );
   }

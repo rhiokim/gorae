@@ -6,8 +6,9 @@ const initial = {
 export default (state = initial, action) => {
   switch (action.type) {
     case 'REQUEST_IMAGE':
+    case 'REQUEST_CREATE_IMAGE':
       state = Object.assign({}, state, {
-        isFetching: true
+        pull: null
       });
       break;
     case 'RECEIVE_IMAGE':
@@ -15,6 +16,11 @@ export default (state = initial, action) => {
         isFetching: false,
         image: action.image
       });
+      break;
+    case 'SUCCESS_CREATE_IMAGE':
+      state = Object.assign({}, state, {
+        pull: action.pull
+      })
       break;
     default:
       break;

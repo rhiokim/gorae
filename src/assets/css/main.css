@@ -468,3 +468,26 @@ td {
 .chk-display-all.mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
   background-color: rgba(255,255,255, 1);
 }
+
+/**
+ * form field
+ */
+.basic-grey input[type="text"],
+.basic-grey input[type="email"],
+.basic-grey textarea,
+.basic-grey select {
+  border: 1px solid #DADADA;
+  color: #888;
+  height: 26px;
+  outline: 0 none;
+  padding: 3px 3px 3px 5px;
+  font-size: 13px;
+  box-shadow: inset 0px 1px 4px #ECECEC;
+  -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+  -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+}
+
+.basic-grey textarea {
+  height: 100px;
+  padding: 5px 3px 3px 5px;
+}
