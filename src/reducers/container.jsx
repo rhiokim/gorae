@@ -77,6 +77,11 @@ export default (state = initial, action) => {
       });
       break;
     }
+    case 'SUCCESS_EXEC_CONTAINER':
+      state = Object.assign({}, state, {
+        exec: action.exec
+      });
+      break;
     default:
       break;
   }

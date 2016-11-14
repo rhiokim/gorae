@@ -44,7 +44,6 @@ class Images extends React.Component {
 
   handleAction(e) {
     const {action} = e.target.dataset;
-    const {images} = this.props;
 
     e.preventDefault();
 

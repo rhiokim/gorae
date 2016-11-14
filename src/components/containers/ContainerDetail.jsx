@@ -18,6 +18,7 @@ import Stats from './Stats';
 import Changes from './Changes';
 import Terminal from './Terminal';
 import FooterBarSimple from '../../components/FooterBarSimple';
+import TerminalDialog from './TerminalDialog';
 
 class ContainerDetail extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class ContainerDetail extends React.Component {
     this.handleAction = this.handleAction.bind(this);
 
     this.state = {
+      openTerminalDialog: false,
       activeTab: 0
     };
   }
@@ -88,6 +90,10 @@ class ContainerDetail extends React.Component {
         });
         break;
       }
+      case 'exec': {
+        this.setState({openTerminalDialog: true});
+        break;
+      }
       default:
         break;
     }
@@ -114,7 +120,7 @@ class ContainerDetail extends React.Component {
         return (<Changes id={id} />);
       }
       case 5: {
-        return (<Terminal id={id} container={container} />);
+        return (<Terminal id={id} cmd="sh" />);
       }
       default: return <div>Nothing to see here :-)</div>;
     }
@@ -126,6 +132,8 @@ class ContainerDetail extends React.Component {
   }
 
   render() {
+    const {container} = this.props;
+
     return (
       <div className={classNames('mdl-demo', 'mdl-base')}>
         <Layout className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 700))}>
@@ -156,11 +164,18 @@ class ContainerDetail extends React.Component {
                 <MenuItem data-action="restart">Restart</MenuItem>
                 <MenuItem data-action="commit">Commit</MenuItem>
                 <MenuItem data-action="remove">Remove</MenuItem>
+                <MenuItem data-action="exec">Exec <small data-action="exec">(sh)</small></MenuItem>
               </Menu>
             </Grid>
             <FooterBarSimple />
           </Content>
         </Layout>
+        {this.state.openTerminalDialog
+          ? <TerminalDialog container={container}
+          onCancel={() => this.setState({openTerminalDialog: false})}
+          style={{width: 'calc(100% - 200px)', top: '100px'}} />
+          : ''
+        }
       </div>
     );
   }

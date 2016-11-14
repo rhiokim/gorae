@@ -38,7 +38,7 @@ class Terminal extends Component {
 
   componentDidMount() {
     const self = this;
-    const {container} = this.props;
+    const {id, cmd} = this.props;
 
     socket = window.io(process.env.__API__, {path: '/wetty/socket.io'});
 
@@ -57,7 +57,8 @@ class Terminal extends Component {
 
         term.runCommandClass(Wetty, document.location.hash.substr(1));
         socket.emit('container', {
-          id: container.Id,
+          id: id,
+          cmd: cmd
         });
         socket.on('ready', () => {
           socket.emit('resize', {
