@@ -54,50 +54,40 @@ class Containers extends Component {
 
   handleAction(e) {
     const {action} = e.target.dataset;
-    const containers = this.props._containers;
     switch (action) {
       case 'stop': {
-        this._selectedIndex.forEach(idx => {
-          const container = containers[idx];
-          this.props.stopContainer(container.Id);
+        this._selectedIDs.forEach(id => {
+          this.props.stopContainer(id);
         })
         break;
       }
       case 'start': {
-        this._selectedIndex.forEach(idx => {
-          const container = containers[idx];
-          console.log(container.Id)
-          this.props.startContainer(container.Id, {
-            id: container.Id
-          });
+        this._selectedIDs.forEach(id => {
+          this.props.startContainer(id, {});
         });
         break;
       }
       case 'kill': {
-        this._selectedIndex.forEach(idx => {
-          const container = containers[idx];
-          this.props.killContainer(container.Id);
+        this._selectedIDs.forEach(id => {
+          this.props.killContainer(id);
         });
         break;
       }
       case 'restart': {
-        this._selectedIndex.forEach(idx => {
-          const container = containers[idx];
-          this.props.restartContainer(container.Id);
+        this._selectedIDs.forEach(id => {
+          this.props.restartContainer(id);
         });
         break;
       }
       case 'pause': {
-        this._selectedIndex.forEach(idx => {
-          const container = containers[idx];
-          this.props.pauseContainer(container.Id);
+        this._selectedIDs.forEach(id => {
+          this.props.pauseContainer(id);
         });
         break;
       }
       case 'unpause': {
-        this._selectedIndex.forEach(idx => {
-          const container = containers[idx];
-          this.props.unPauseContainer(container.Id);
+        this._selectedIDs.forEach(id => {
+          this.props.unPauseContainer(id);
         });
         break;
       }
@@ -107,9 +97,8 @@ class Containers extends Component {
           text: 'You will not be able to recover this container!'
         }, isConfirm => {
           if (isConfirm) {
-            this._selectedIndex.forEach(idx => {
-              const container = containers[idx];
-              this.props.removeContainer(container.Id)
+            this._selectedIDs.forEach(id => {
+              this.props.removeContainer(id)
             });
           }
         });
@@ -121,7 +110,7 @@ class Containers extends Component {
   }
 
   handleSelectionChanged(val) {
-    this._selectedIndex = val;
+    this._selectedIDs = val;
   }
 
   handleDisplayAll(e) {
@@ -162,7 +151,7 @@ class Containers extends Component {
                 ? <div style={{width: '100%', textAlign: 'center', padding: '10px'}}>
                     <Spinner singleColor />
                   </div>
-                : <DataTable selectable sortable rowKeyColumn="id" rows={containers} shadow={0} className="container-table" onSelectionChanged={this.handleSelectionChanged}>
+                : <DataTable selectable sortable rowKeyColumn="Id" rows={containers} shadow={0} className="container-table" onSelectionChanged={this.handleSelectionChanged}>
                   <TableHeader name="State" className="td50" cellFormatter={(state, row) => (
                     <Tooltip label={row.Status} position="top">
                       <span><StateIcon state={state} /></span>

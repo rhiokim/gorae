@@ -25,6 +25,8 @@ export default (state = initial, action) => {
       return Object.assign({}, state, {
         filtered: res
       });
+    case 'SUCCESS_REMOVE_NETWORK':
+      break;
     default:
       break;
   }

@@ -6,8 +6,10 @@ const initial = {
 export default (state = initial, action) => {
   switch (action.type) {
     case 'REQUEST_NETWORK':
+    case 'REQUEST_CREATE_NETWORK':
       state = Object.assign({}, state, {
-        isFetching: true
+        isFetching: true,
+        create: null
       });
       break;
     case 'RECEIVE_NETWORK':
@@ -15,6 +17,11 @@ export default (state = initial, action) => {
         isFetching: false,
         network: action.network
       });
+      break;
+    case 'SUCCESS_CREATE_NETWORK':
+      state = Object.assign({}, state, {
+        create: action.create
+      })
       break;
     default:
       break;

@@ -26,10 +26,10 @@ const faileRemoveImage = (error) => ({
   error: error
 });
 
-export const removeImage = (name, params = {}) => dispatch => {
+export const removeImage = (name) => dispatch => {
   dispatch(requestRemoveImage());
 
-  return docker.delete(`images/${name}`, {params: params})
+  return docker.delete(`images/${name}`)
     .then(response => {
       const {status, data} = response;
 

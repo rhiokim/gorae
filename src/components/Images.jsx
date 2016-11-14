@@ -59,9 +59,8 @@ class Images extends React.Component {
           text: 'You will not be able to recover this image!'
         }, isConfirm => {
           if (isConfirm) {
-            this._selectedIndex.forEach(idx => {
-              const image = images[idx];
-              this.props.removeImage(image.Id)
+            this._selectedIDs.forEach(id => {
+              this.props.removeImage(id)
                 .then(() => this.props.fetchImages(this.state.params));
             });
           }
@@ -74,9 +73,8 @@ class Images extends React.Component {
           text: 'You will not be able to recover this image!'
         }, isConfirm => {
           if (isConfirm) {
-            this._selectedIndex.forEach(idx => {
-              const image = images[idx];
-              this.props.removeImage(image.Id, {force: true})
+            this._selectedIDs.forEach(id => {
+              this.props.removeImage(id, {force: true})
                 .then(() => this.props.fetchImages(this.state.params));
             });
           }
@@ -89,9 +87,8 @@ class Images extends React.Component {
           text: 'You will not be able to recover this image!'
         }, isConfirm => {
           if (isConfirm) {
-            this._selectedIndex.forEach(idx => {
-              const image = images[idx];
-              this.props.removeImage(image.Id, {noprune: true})
+            this._selectedIDs.forEach(id => {
+              this.props.removeImage(id, {noprune: true})
                 .then(() => this.props.fetchImages(this.state.params));
             });
           }
@@ -104,7 +101,7 @@ class Images extends React.Component {
   }
 
   handleSelectionChanged(val) {
-    this._selectedIndex = val;
+    this._selectedIDs = val;
   }
 
   handleDisplayAll(e) {
@@ -152,7 +149,7 @@ class Images extends React.Component {
                 ? <div style={{width: '100%', textAlign: 'center', padding: '10px'}}>
                     <Spinner singleColor />
                   </div>
-                : <DataTable selectable sortable rowKeyColumn="id" rows={images} shadow={0} className="image-table" onSelectionChanged={this.handleSelectionChanged}>
+                : <DataTable selectable sortable rowKeyColumn="Id" rows={images} shadow={0} className="image-table" onSelectionChanged={this.handleSelectionChanged}>
                   <TableHeader name="RepoTags" className="td50" cellFormatter={(repo, row) => (
                     <Link to={`/images/${row.Id}`}>{repo}</Link>
                   )}>Repository</TableHeader>
