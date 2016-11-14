@@ -16,6 +16,15 @@ export default (state = initial, action) => {
         networks: action.networks
       });
       break;
+    case 'NETWORK_FILTER_BY_NAME':
+      const {name} = action;
+      const {networks} = state;
+      const res = name
+        ? networks.filter(network => network.Name.indexOf(name) > -1)
+        : state.networks ;
+      return Object.assign({}, state, {
+        filtered: res
+      });
     default:
       break;
   }

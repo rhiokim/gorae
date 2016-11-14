@@ -29,7 +29,8 @@ const faileCreateImage = (error) => ({
 export const createImage = ({registry, fromImage, tag}) => dispatch => {
   dispatch(requestCreateImage());
 
-  return docker.post(`images/create?fromImage=${fromImage}&tag=${tag}`)
+  registry = registry ? `${registry}/` : ''
+  return docker.post(`images/create?fromImage=${registry}${fromImage}&tag=${tag}`)
     .then(response => {
       const {status, data} = response;
 

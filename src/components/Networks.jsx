@@ -69,7 +69,7 @@ class Networks extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  networks: state.networksReducer.networks
+  networks: state.networksReducer.filtered || state.networksReducer.networks
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);

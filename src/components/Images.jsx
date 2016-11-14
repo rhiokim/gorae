@@ -45,14 +45,12 @@ class Images extends React.Component {
   handleAction(e) {
     const {action} = e.target.dataset;
     const {images} = this.props;
-console.log(e)
+
     e.preventDefault();
 
     switch (action) {
       case 'pull': {
-        this.setState({openImagePullDialog: true}, () => {
-        console.log('openImagePullDialog', this.state.openImagePullDialog)
-        });
+        this.setState({openImagePullDialog: true});
         break;
       }
       case 'remove': {
