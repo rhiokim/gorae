@@ -89,7 +89,7 @@ class Networks extends React.Component {
                   <MenuItem data-action="create">Create Network</MenuItem>
                   <MenuItem data-action="remove">Remove</MenuItem>
                 </Menu>
-                <Textfield onChange={this.searchByName} label="Search" expandable expandableIcon="search" />
+                <Textfield onChange={this.searchByName} label="Search" className="pull-right" expandable expandableIcon="search" />
               </Cell>
               <Cell col={12} phone={12}>
                 <DataTable selectable sortable rowKeyColumn="Id" rows={networks} shadow={0} className="image-table" onSelectionChanged={this.handleSelectionChanged}>

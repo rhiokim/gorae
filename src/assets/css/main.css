@@ -304,9 +304,9 @@ html, body {
 /* search bar */
 
 .mdl-cell .mdl-textfield {
-  position: absolute;
+  /*position: absolute;*/
   padding: 0;
-  right: 0;
+  /*right: 0;*/
 }
 
 .mdl-cell .mdl-textfield--expandable.is-focused {

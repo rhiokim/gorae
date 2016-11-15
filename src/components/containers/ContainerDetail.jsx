@@ -101,7 +101,6 @@ class ContainerDetail extends React.Component {
 
   renderActiveTabContent() {
     const {id} = this.props.params;
-    const {container} = this.props;
 
     switch (this.state.activeTab) {
       case 0: {

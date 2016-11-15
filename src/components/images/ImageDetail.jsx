@@ -10,6 +10,8 @@ import {
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 
 import * as Actions from '../../actions/image';
+import {Basic} from './Basic';
+import {History} from './History';
 import FooterBarSimple from '../FooterBarSimple';
 
 class ImageDetail extends Component {
@@ -36,7 +38,7 @@ class ImageDetail extends Component {
         {histories.map((history, i) => {
           const id = history.Id.replace('sha256:', '');
           return (
-            <CardText>
+            <CardText key={i}>
               <h5>{id} <TimeAgo component="small" date={history.Created*1000}/></h5>
               <pre>{history.CreatedBy}</pre>
             </CardText>
@@ -46,51 +48,17 @@ class ImageDetail extends Component {
     )
   }
 
-  renderBasicInformation() {
-    const {image} = this.props;
-    return (
-      <div>
-        <h4>Basic Information</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>Key</th>
-              <th>Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Id:</td><td>{image.Id}</td>
-            </tr>
-            <tr>
-              <td>Created:</td><td>{image.Created}</td>
-            </tr>
-            <tr>
-              <td>Parent:</td><td>{image.Parent}</td>
-            </tr>
-            <tr>
-              <td>Size:</td><td>{image.Size}</td>
-            </tr>
-            <tr>
-              <td>Built with:</td><td>{image.DockerVersion}/{image.Os}/{image.Architecture}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-
   renderActiveTabContent() {
+    const {image, histories} = this.props;
     switch (this.state.activeTab) {
-        case 0: return this.renderBasicInformation();
-        case 1: return this.renderImageHistory();
+        case 0: return <Basic {...image} />
+        case 1: return <History histories={histories} />
         default: return <div>Nothing to see here :-)</div>;
     }
   }
 
   render() {
-    // const {image} = this.props;
-    // const {activeTab} = this.state;
+    const {image} = this.props;
     return (
       <div className={classNames('mdl-demo', 'mdl-base')}>
         <Layout className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 700))}>
@@ -101,11 +69,11 @@ class ImageDetail extends Component {
             <Grid component="section" className="section--center" shadow={0} noSpacing>
               <Cell component={Card} col={12}>
                 <Tabs className="mb-20" activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })} ripple>
-                    <Tab>Basic Information</Tab>
-                    <Tab>History</Tab>
+                  <Tab>Basic Information</Tab>
+                  <Tab>History</Tab>
                 </Tabs>
                 <CardText>
-                  {this.renderActiveTabContent()}
+                  {image && this.renderActiveTabContent()}
                 </CardText>
               </Cell>
             </Grid>
@@ -117,9 +85,18 @@ class ImageDetail extends Component {
   }
 }
 
+const filter = histories => {
+  return histories.map(h => ({
+    Id: h.Id.indexOf('sha') > -1 ? h.Id.substr(7, 12) : h.Id,
+    Created: h.Created * 1000,
+    CreatedBy: h.CreatedBy,
+    Size: h.Size
+  }))
+}
+
 const mapStateToProps = state => ({
   image: state.imageReducer.image,
-  histories: state.imageHistoryReducer.histories
+  histories: filter(state.imageHistoryReducer.histories || [])
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);

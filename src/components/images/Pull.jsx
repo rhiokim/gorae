@@ -2,11 +2,10 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import serialize from 'form-serialize';
-import Push from 'push.js';
 
 import {
   Button, Dialog, DialogTitle, DialogContent, DialogActions, Spinner,
-  CardTitle
+  CardTitle, Grid, Cell
 } from 'react-mdl';
 
 import * as Actions from '../../actions/image.create';
@@ -65,39 +64,31 @@ class ImagePull extends React.Component {
           ? <DialogContent style={{width: '100%', textAlign: 'center', padding: '10px'}}>
               {!isDone ? <Spinner singleColor /> : <Typewriter speed={200} tag="h4" text={["Done."]} />}
             </DialogContent>
-          : <DialogContent>
-            <table className="basic-grey" style={{width: '100%', position: 'relative'}}>
-              <tbody>
-                <tr>
-                  <td style={{width: '100px', fontSize: '12px'}}>
-                    <span>Registry : </span>
-                  </td>
-                  <td>
-                    <input name="registry" type="text" placeholder="Registry. Leave empty to user docker hub" style={{width: '430px'}} />
-                  </td>
-                </tr>
-                <tr>
-                  <td style={{width: '100px', fontSize: '12px'}}>
-                    <span>Image Name : </span>
-                  </td>
-                  <td>
-                    <input name="fromImage" type="text" placeholder="Image name" style={{width: '200px'}} />
-                  </td>
-                </tr>
-                <tr>
-                  <td style={{width: '100px', fontSize: '12px'}}>
-                    <span>Tag Name : </span>
-                  </td>
-                  <td>
-                    <input name="tag" type="text" placeholder="latest" defaultValue="latest" style={{width: '200px'}} />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </DialogContent>
+          : <fieldset className="content-group">
+            <Grid className="form-group">
+              <Cell col={3}>
+                <label style={{marginTop: '6px'}}>Registry :</label>
+              </Cell>
+              <Cell col={9}>
+                <input name="registry" className="form-control" type="text" placeholder="Registry. Leave empty to user docker hub" />
+              </Cell>
+              <Cell col={3}>
+                <label style={{marginTop: '6px'}}>Image Name :</label>
+              </Cell>
+              <Cell col={9}>
+                <input name="fromImage" className="form-control" type="text" placeholder="Image name" />
+              </Cell>
+              <Cell col={3}>
+                <label style={{marginTop: '6px'}}>Tag Name :</label>
+              </Cell>
+              <Cell col={9}>
+                <input name="tag" className="form-control" type="text" defaultValue="latest" placeholder="latest" />
+              </Cell>
+            </Grid>
+          </fieldset>
           }
           <DialogActions>
-            <Button type='submit'>Pull</Button>
+            <Button type='submit' disabled={isPulling}>Pull</Button>
             <Button type='button' onClick={onCancel}>Cancel</Button>
           </DialogActions>
         </form>

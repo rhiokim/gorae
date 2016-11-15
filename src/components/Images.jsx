@@ -141,7 +141,7 @@ class Images extends React.Component {
                 </Menu>
                 <span>total: {images.length} images</span> |&nbsp;
                 <Checkbox label="Display all" className="chk-display-all" checked={this.state.params.all} onChange={this.handleDisplayAll} />
-                <Textfield onChange={this.searchByName} label="Search" expandable expandableIcon="search" />
+                <Textfield onChange={this.searchByName} className="pull-right" label="Search" expandable expandableIcon="search" />
               </Cell>
               <Cell col={12} phone={12}>
                 {!images.length
@@ -188,7 +188,7 @@ const filter = images => {
       Id: Id,
       Created: Created*1000,
       ParentId: ParentId,
-      RepoTags: RepoTags[0],
+      RepoTags: RepoTags ? RepoTags[0] : [],
       VirtualSize: prettyBytes(VirtualSize)
     }
   })
@@ -196,7 +196,7 @@ const filter = images => {
 
 const mapStateToProps = state => ({
   _images: state.imagesReducer.images,
-  images: filter(state.imagesReducer.filtered ||state.imagesReducer.images)
+  images: filter(state.imagesReducer.filtered || state.imagesReducer.images)
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({...ImageActions, ...ImageRemoveAction}, dispatch);

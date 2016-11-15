@@ -3,10 +3,11 @@ import React from 'react';
 class Typewriter extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {};
   }
 
   componentWillMount() {
-    console.log('componentWillMount')
     let {text} = this.props;
 
     if (Array.isArray(text)) {
@@ -25,7 +26,6 @@ class Typewriter extends React.Component {
 
   componentWillUnmount() {
     clearTimeout(this._tid);
-    console.log('componentWillUnmount')
   }
 
   reward() {

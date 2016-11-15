@@ -1,6 +1,6 @@
 const initial = {
   isFetching: false,
-  image: {}
+  image: null
 };
 
 export default (state = initial, action) => {

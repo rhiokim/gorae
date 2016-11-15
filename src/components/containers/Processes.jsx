@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
@@ -6,9 +6,9 @@ import { DataTable, TableHeader, IconButton, Spinner, Textfield } from 'react-md
 
 import * as Actions from '../../actions/container';
 
-class Processes extends Component {
-  constructor(...args) {
-    super(...args);
+class Processes extends React.Component {
+  constructor(props) {
+    super(props);
 
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -63,12 +63,13 @@ class Processes extends Component {
     return (
       isFetching ? <Spinner /> :
         <div>
+          <Textfield onChange={this.handleChange} label="options (aux)" expandable expandableIcon="search" />
           <Textfield
             label="options (aux)"
             onChange={this.handleChange}
             floatingLabel style={{width: '150px'}} />
           <IconButton name="find_replace" colored onClick={this.handleClick} />
-          <DataTable selectable rowKeyColumn="id" rows={processes}>
+          <DataTable sortable rowKeyColumn="id" rows={processes}>
             {Titles.map(title => {
               return (
                 <TableHeader key={title} name={title} tooltip={title}>{title}</TableHeader>

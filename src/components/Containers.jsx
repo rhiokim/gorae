@@ -144,7 +144,7 @@ class Containers extends Component {
                 </Menu>
                 <span>{containers.length} containers</span> |&nbsp;
                 <Checkbox label="Display all" className="chk-display-all" checked={this.state.params.all} onChange={this.handleDisplayAll} />
-                <Textfield onChange={this.searchByName} label="Search" expandable expandableIcon="search" />
+                <Textfield onChange={this.searchByName} label="Search" className="pull-right" expandable expandableIcon="search" />
               </Cell>
               <Cell col={12} phone={12}>
               {!containers.length

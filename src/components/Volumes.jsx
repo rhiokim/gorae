@@ -45,7 +45,7 @@ class Volumes extends Component {
                 <Menu target="demo-menu-lower-left">
                   <MenuItem>Remove</MenuItem>
                 </Menu>
-                <Textfield onChange={this.searchByName} label="Search" expandable expandableIcon="search" />
+                <Textfield onChange={this.searchByName} label="Search" className="pull-right" expandable expandableIcon="search" />
               </Cell>
               <Cell col={12} tablet={12} phone={12}>
                 {!volumes ? <div style={{textAlign: 'center', paddingTop: '30px', height: '50px'}}>No Volumes</div> :

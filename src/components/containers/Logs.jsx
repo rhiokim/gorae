@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
@@ -6,9 +6,9 @@ import {Checkbox} from 'react-mdl';
 
 import * as Actions from '../../actions/container';
 
-class Logs extends Component {
-  constructor(...args) {
-    super(...args);
+class Logs extends React.Component {
+  constructor(props) {
+    super(props);
 
     this.stdout = this.stdout.bind(this);
     this.stderr = this.stderr.bind(this);
@@ -39,7 +39,6 @@ class Logs extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     this.setState({
       isFetching: false
     });
@@ -83,20 +82,24 @@ class Logs extends Component {
     return (
       <div>
         {/*isFetching ? <Spinner /> : ''*/}
-        <div style={{float: 'left', marginRight: '15px'}}>
-          <Checkbox label="stdout" ripple defaultChecked onChange={this.stdout} />
-        </div>
-        <div style={{float: 'left', marginRight: '10px'}}>
-          <Checkbox label="stderr" ripple defaultChecked onChange={this.stderr} />
-        </div>
-        <div style={{float: 'left', marginTop: '1px'}}>
-          <input type="number" placeholder="21" className="mdl-input__box-outline" style={{width: '60px'}} onChange={this.tail} /> lines
-        </div>
-        <div style={{float: 'right', marginRight: '10px'}}>
-          <Checkbox label="timestamp" onChange={this.timestamps} />
+        <div className="clearfix">
+          <div className="pull-left" style={{marginRight: '15px'}}>
+            <Checkbox label="stdout" ripple defaultChecked onChange={this.stdout} />
+          </div>
+          <div className="pull-left" style={{marginRight: '10px'}}>
+            <Checkbox label="stderr" ripple defaultChecked onChange={this.stderr} />
+          </div>
+          <div className="pull-left" style={{marginTop: '1px'}}>
+            <input type="number" placeholder="21" className="mdl-input__box-outline" style={{width: '60px'}} onChange={this.tail} /> lines
+          </div>
+          <div className="pull-right" style={{marginRight: '10px'}}>
+            <Checkbox label="timestamp" onChange={this.timestamps} />
+          </div>
         </div>
 
-        <pre style={{clear: 'both'}}>{this.props.logs}</pre>
+        <div className="mt-20 clearfix">
+          <pre>{this.props.logs}</pre>
+        </div>
       </div>
     );
   }

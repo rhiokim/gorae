@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
 import {Snackbar} from 'react-mdl';
 
 class Notifier extends React.Component {
   constructor(props) {
     super(props);
+
     this.handleTimeoutSnackbar = this.handleTimeoutSnackbar.bind(this);
 
     this.state = {
@@ -26,7 +26,6 @@ class Notifier extends React.Component {
   render() {
     const {isSnackbarActive} = this.state;
     const {error} = this.props;
-    console.log(error)
     return (
       <Snackbar
         active={isSnackbarActive}
