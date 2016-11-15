@@ -4,3 +4,6 @@
 
 ### Image
 - display result after remove image.
+
+### Network
+- delete from network

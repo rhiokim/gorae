@@ -164,7 +164,7 @@ class CreateNetwork extends React.Component {
 
 const mapStateToProps = state => ({
   network: state.networkReducer,
-  create: state.imageReducer.create
+  create: state.networkReducer.create
 });
 
 const mapDispathToProps = dispatch => bindActionCreators(Actions, dispatch);

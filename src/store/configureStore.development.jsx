@@ -16,6 +16,7 @@ import imageHistoryReducer from '../reducers/history';
 import networksReducer from '../reducers/networks';
 import networkReducer from '../reducers/network';
 import daemonReducer from '../reducers/daemon';
+import volumeReducer from '../reducers/volume';
 import volumesReducer from '../reducers/volumes';
 import eventsReducer from '../reducers/events';
 import nodesReducer from '../reducers/nodes';
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
   networksReducer: networksReducer,
   networkReducer: networkReducer,
   daemonReducer: daemonReducer,
+  volumeReducer: volumeReducer,
   volumesReducer: volumesReducer,
   eventsReducer: eventsReducer,
   nodesReducer: nodesReducer,
