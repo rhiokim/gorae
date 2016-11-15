@@ -1,8 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router';
-import TimeAgo from 'react-timeago';
-import dateFormat from 'dateformat';
-import prettyBytes from 'pretty-bytes';
 
 export const Basic = props => {
   const {IPAM, Options} = props;

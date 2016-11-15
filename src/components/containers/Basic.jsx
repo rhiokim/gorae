@@ -8,6 +8,7 @@ import dateFormat from 'dateformat';
 import * as Actions from '../../actions/container';
 import BindingsForm from './basic/Bindings';
 import EnvironmentForm from './basic/Environment';
+import Changes from './Changes';
 import {Labels} from './basic/Labels';
 import {Network} from './basic/Network';
 import {Path} from './basic/Path';
@@ -107,6 +108,7 @@ class Basic extends React.Component {
         <Network network={container.NetworkSettings} />
         <State state={container.State} />
         <Path container={container} />
+        <Changes id={container.Id} />
       </div>
     );
   }

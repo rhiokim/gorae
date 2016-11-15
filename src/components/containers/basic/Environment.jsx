@@ -83,10 +83,10 @@ class EnvironmentsForm extends Component {
           }
         </fieldset>
 
-        <CardActions border style={{textAlign: 'right'}}>
+        <CardActions border style={{textAlign: 'right', padding: '15px 0'}}>
           <Button colored onClick={() => {}}>Reset</Button>
           <Button colored type="submit">Commit and Restart</Button>
-          <Button raised colored onClick={this.handleAdd}>Add Environment Variable</Button>
+          <Button raised colored onClick={this.handleAdd}>Add</Button>
         </CardActions>
       </form>
     );

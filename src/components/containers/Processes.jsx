@@ -63,11 +63,10 @@ class Processes extends React.Component {
     return (
       isFetching ? <Spinner /> :
         <div>
-          <Textfield onChange={this.handleChange} label="options (aux)" expandable expandableIcon="search" />
           <Textfield
             label="options (aux)"
             onChange={this.handleChange}
-            floatingLabel style={{width: '150px'}} />
+            style={{width: '150px'}} />
           <IconButton name="find_replace" colored onClick={this.handleClick} />
           <DataTable sortable rowKeyColumn="id" rows={processes}>
             {Titles.map(title => {

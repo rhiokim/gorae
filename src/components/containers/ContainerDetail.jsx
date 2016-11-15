@@ -15,7 +15,7 @@ import Basic from './Basic';
 import Logs from './Logs';
 import Processes from './Processes';
 import Stats from './Stats';
-import Changes from './Changes';
+// import Changes from './Changes';
 import Terminal from './Terminal';
 import FooterBarSimple from '../../components/FooterBarSimple';
 import TerminalDialog from './TerminalDialog';
@@ -115,10 +115,10 @@ class ContainerDetail extends React.Component {
       case 3: {
         return (<Stats id={id} />);
       }
+      // case 4: {
+      //   return (<Changes id={id} />);
+      // }
       case 4: {
-        return (<Changes id={id} />);
-      }
-      case 5: {
         return (<Terminal id={id} cmd="sh" />);
       }
       default: return <div>Nothing to see here :-)</div>;
@@ -146,7 +146,6 @@ class ContainerDetail extends React.Component {
                   <Tab>Logs</Tab>
                   <Tab>Process</Tab>
                   <Tab>Stats</Tab>
-                  <Tab>Changes</Tab>
                   <Tab>Terminal</Tab>
                 </Tabs>
                 <CardText>

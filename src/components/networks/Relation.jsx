@@ -1,8 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router';
-import TimeAgo from 'react-timeago';
-import dateFormat from 'dateformat';
-import prettyBytes from 'pretty-bytes';
 import {Button} from 'react-mdl';
 
 export const Relation = props => {
@@ -12,7 +9,7 @@ export const Relation = props => {
     <div>
       {Object.keys(Containers).map((key, i) => {
         const container = Containers[key]
-        return <table className="table table-framed" key={i}>
+        return <table className="table table-framed table-xs mb-10" key={i}>
           <thead>
             <tr>
               <th width="160">#</th>
@@ -50,7 +47,7 @@ export const Relation = props => {
               <td></td>
               <td>
                 <div className="pull-right">
-                  <Button colored>Disconnect from network</Button>
+                  <Button raised colored ripple>Disconnect from network</Button>
                 </div>
               </td>
             </tr>

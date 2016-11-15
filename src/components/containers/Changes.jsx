@@ -1,21 +1,36 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import * as Actions from '../../actions/container';
 
-class Changes extends Component {
+class Changes extends React.Component {
   componentWillMount() {
     this.props.fetchContainerChanges(this.props.id);
   }
 
-  renderActiveTabContent() {}
-
   render() {
+    const {changes} = this.props;
     return (
-      <div>
-        {JSON.stringify(this.props.changes, null, 2)}
-      </div>
+      <fieldset className="content-group mt-30">
+        <legend className="text-bold">Changes <small className="text-muted">- container’s filesystem</small></legend>
+        <table className="table table-framed">
+          <thead>
+            <tr>
+              <th>Path</th>
+              <th>Kind</th>
+            </tr>
+          </thead>
+          <tbody>
+          {changes.map((change, i) => {
+            return <tr key={i}>
+              <td>{change.Path}</td>
+              <td>{change.Kind}</td>
+            </tr>
+          })}
+          </tbody>
+        </table>
+      </fieldset>
     );
   }
 }
