@@ -1,6 +1,6 @@
 const initial = {
   isFetching: false,
-  network: {}
+  network: null
 };
 
 export default (state = initial, action) => {

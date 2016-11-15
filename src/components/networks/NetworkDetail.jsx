@@ -10,6 +10,8 @@ import {
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 
 import * as Actions from '../../actions/network';
+import {Basic} from './Basic';
+import {Relation} from './Relation';
 import FooterBarSimple from '../FooterBarSimple';
 
 class NetworkDetail extends Component {
@@ -106,22 +108,17 @@ class NetworkDetail extends Component {
     );
   }
 
-  renderCreateNetwork() {
-    return (
-      <div>form</div>
-    );
-  }
-
   renderActiveTabContent() {
+    const {network} = this.props;
     switch (this.state.activeTab) {
-        case 0: return this.renderBasicInformation();
-        case 1: return this.renderNetworkRelation();
-        case 2: return this.renderCreateNetwork();
+        case 0: return <Basic {...network} />
+        case 1: return <Relation {...network} />
         default: return <div>Nothing to see here :-)</div>;
     }
   }
 
   render() {
+    const {network} = this.props;
     return (
       <div className={classNames('mdl-demo', 'mdl-base')}>
         <Layout className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 700))}>
@@ -134,10 +131,9 @@ class NetworkDetail extends Component {
                 <Tabs className="mb-20" activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })} ripple>
                   <Tab>Basic Information</Tab>
                   <Tab>Network Relation</Tab>
-                  <Tab>Create Network</Tab>
                 </Tabs>
                 <CardText>
-                  {this.renderActiveTabContent()}
+                  {network && this.renderActiveTabContent()}
                 </CardText>
               </Cell>
             </Grid>
