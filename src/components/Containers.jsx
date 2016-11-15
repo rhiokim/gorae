@@ -18,7 +18,7 @@ import * as ContainerActions from '../actions/container';
 import * as ContainersActions from '../actions/containers';
 import {StateIcon} from './ui'
 import FooterBarSimple from './FooterBarSimple';
-import {Dialog} from '../components/ui';
+import swal from './ui/dialog/Dialog';
 
 class Containers extends Component {
   constructor(props) {
@@ -92,7 +92,7 @@ class Containers extends Component {
         break;
       }
       case 'remove': {
-        Dialog.warnConfirm({
+        swal.warnConfirm({
           title: 'Are you sure?',
           text: 'You will not be able to recover this container!'
         }, isConfirm => {

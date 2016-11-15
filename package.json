@@ -80,6 +80,7 @@
     "d3-dot": "^1.2.1",
     "d3-line": "0.0.1",
     "d3-tipy": "^1.2.3",
+    "dateformat": "^1.0.12",
     "form-serialize": "^0.7.1",
     "offset": "0.0.1",
     "push.js": "0.0.11",

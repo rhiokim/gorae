@@ -17,7 +17,6 @@ import configureStore from './store/configureStore';
 import './assets/less/main.less';
 import 'react-mdl/extra/material.css';
 import 'react-mdl/extra/material.js';
-import './assets/css/normalize.css';
 import './assets/css/container.css';
 import './assets/css/image.css';
 import './assets/css/main.css';

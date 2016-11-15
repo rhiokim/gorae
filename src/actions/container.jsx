@@ -22,10 +22,6 @@ export const REQUEST_CONTAINER_LOGS = 'REQUEST_CONTAINER_LOGS';
 export const RECEIVE_CONTAINER_LOGS = 'RECEIVE_CONTAINER_LOGS';
 export const RECEIVE_CONTAINER_LOGS_FAIL = 'RECEIVE_CONTAINER_LOGS_FAIL';
 
-export const REQUEST_COMMIT = 'REQUEST_COMMIT';
-export const RECEIVE_COMMIT = 'RECEIVE_COMMIT';
-export const RECEIVE_COMMIT_FAIL = 'RECEIVE_COMMIT_FAIL';
-
 export const REQUEST_STOP = 'REQUEST_STOP';
 export const RECEIVE_STOP = 'RECEIVE_STOP';
 export const RECEIVE_STOP_FAIL = 'RECEIVE_STOP_FAIL';
@@ -146,24 +142,6 @@ const receiveContainerLogs = data => {
 
 const fetchContainerLogsFail = () => ({
   type: RECEIVE_CONTAINER_LOGS_FAIL
-});
-
-const requestCommits = () => {
-  return {
-    type: REQUEST_COMMIT
-  };
-};
-
-const receiveCommits = data => {
-  return {
-    type: RECEIVE_COMMIT,
-    commit: data,
-    receivedAt: Date.now()
-  };
-};
-
-const fetchCommitsFail = () => ({
-  type: RECEIVE_COMMIT_FAIL
 });
 
 const requestStop = () => {
@@ -369,24 +347,6 @@ export const fetchContainerStats = (id, params) => dispatch => {
       }
 
       dispatch(receiveContainerStats(data));
-    });
-};
-
-export const fetchCommits = (data, params) => dispatch => {
-  dispatch(requestCommits());
-
-  return docker.post('commit', data, {
-    params: params
-  })
-    .then(response => {
-      const {status, data} = response;
-
-      if (status !== 201) {
-        dispatch(fetchCommitsFail());
-        return;
-      }
-
-      dispatch(receiveCommits(data));
     });
 };
 
