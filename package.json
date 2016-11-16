@@ -1,6 +1,6 @@
 {
   "name": "gorae",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "The Gorae is a browser-based solution for managing a docker engine",
   "keywords": [
     "gorae",
