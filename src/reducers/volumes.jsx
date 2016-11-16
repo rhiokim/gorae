@@ -13,7 +13,7 @@ export default (state = initial, action) => {
     case 'RECEIVE_VOLUMES':
       state = Object.assign({}, state, {
         isFetching: false,
-        volumes: action.volumes,
+        volumes: action.volumes || [],
         warnings: action.warnings
       });
       break;
