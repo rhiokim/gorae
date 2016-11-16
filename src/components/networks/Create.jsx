@@ -75,82 +75,54 @@ class CreateNetwork extends React.Component {
           ? <DialogContent style={{width: '100%', textAlign: 'center', padding: '10px'}}>
               {!isDone ? <Spinner singleColor /> : <Typewriter speed={200} tag="h4" text={["Done."]} />}
             </DialogContent>
-          : <DialogContent>
-          <Grid noSpacing>
-            <Cell col={6}>
-              <table className="basic-grey" style={{width: '100%', position: 'relative'}}>
-                <tbody>
-                  <tr>
-                    <td style={{width: '70px', fontSize: '12px'}}>
-                      <span>Name : </span>
-                    </td>
-                    <td>
-                      <input name="Name" type="text" placeholder="Isolated Network" style={{width: '160px'}} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style={{width: '70px', fontSize: '12px'}}>
-                      <span>Subnet : </span>
-                    </td>
-                    <td>
-                      <input name="Subnet" type="text" placeholder="10.12.0.0/16" defaultValue="" style={{width: '160px'}} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style={{width: '70px', fontSize: '12px'}}>
-                      <span>IPRange : </span>
-                    </td>
-                    <td>
-                      <input name="IPRange" type="text" placeholder="10.12.0.0/24" defaultValue="" style={{width: '160px'}} />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </Cell>
-            <Cell col={6}>
-              <table className="basic-grey" style={{width: '100%', position: 'relative'}}>
-                <tbody>
-                  <tr>
-                    <td style={{width: '70px', fontSize: '12px'}}>
-                      <span>Driver : </span>
-                    </td>
-                    <td>
-                      <input name="Driver" type="text" placeholder="Image name" style={{width: '160px'}} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style={{width: '70px', fontSize: '12px'}}>
-                      <span>Gateway : </span>
-                    </td>
-                    <td>
-                      <input name="Gateway" type="text" placeholder="10.12.0.1" defaultValue="" style={{width: '160px'}} />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </Cell>
-            <Cell col={12}>
-              <table className="basic-grey" style={{width: '100%', position: 'relative'}}>
-                <tbody>
-                  <tr>
-                    <td style={{width: '100px', fontSize: '12px'}}>
-                      <span>Check Duplicate : </span>
-                    </td>
-                    <td>
-                      <input name="tag" type="checkbox" style={{width: '100px'}} />
-                    </td>
-                    <td style={{width: '100px', fontSize: '12px'}}>
-                      <span>Enable IPv6 : </span>
-                    </td>
-                    <td>
-                      <input name="tag" type="checkbox" style={{width: '100px'}} />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </Cell>
+          : <fieldset className="content-group">
+            <Grid className="form-group">
+              <Cell col={2}>
+                <label style={{marginTop: '6px'}}>Name:</label>
+              </Cell>
+              <Cell col={4}>
+                <input name="Name" className="form-control" type="text" placeholder="Isolated Network" />
+              </Cell>
+              <Cell col={2}>
+                <label style={{marginTop: '6px'}}>Driver:</label>
+              </Cell>
+              <Cell col={4}>
+                <input name="Driver" className="form-control" type="text" placeholder="Driver Name" />
+              </Cell>
+              <Cell col={2}>
+                <label style={{marginTop: '6px'}}>Subnet:</label>
+              </Cell>
+              <Cell col={4}>
+                <input name="Subnet" className="form-control" type="text" placeholder="10.12.0.0/16" />
+              </Cell>
+              <Cell col={2}>
+                <label style={{marginTop: '6px'}}>Gateway:</label>
+              </Cell>
+              <Cell col={4}>
+                <input name="Gateway" className="form-control" type="text" placeholder="10.12.0.1" />
+              </Cell>
+              <Cell col={2}>
+                <label style={{marginTop: '6px'}}>IPRange:</label>
+              </Cell>
+              <Cell col={4}>
+                <input name="IPRange" className="form-control" type="text" placeholder="10.12.0.0/24" />
+              </Cell>
+              <Cell col={6}>
+              </Cell>
+              <Cell col={4}>
+                <label className="checkbox-inline checkbox-right" style={{marginTop: '6px'}}>Check Duplicate:
+                  <input name="CheckDuplicate" type="checkbox" placeholder="" />
+                </label>
+              </Cell>
+              <Cell col={4}>
+                <label className="checkbox-inline checkbox-right" style={{marginTop: '6px'}}>Enable IPv6:
+                  <input name="EnableIPv6" type="checkbox" placeholder="" />
+                </label>
+              </Cell>
+              <Cell col={4}>
+              </Cell>
             </Grid>
-          </DialogContent>
+          </fieldset>
           }
           <DialogActions>
             <Button type='submit'>Create Network</Button>
