@@ -1,4 +1,5 @@
 import React from 'react';
+import update from 'react-addons-update';
 import {bindActionCreators} from 'redux';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
@@ -6,10 +7,11 @@ import classNames from 'classnames';
 import TimeAgo from 'react-timeago';
 import Helmet from 'react-helmet';
 // import Push from 'push.js';
-
+import DateTime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
 import {
   Layout, Header, Content, Grid, Cell, DataTable, TableHeader,
-  Tabs, Tab, Card, CardText
+  Tabs, Tab, Card, CardText, Button
 } from 'react-mdl';
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 
@@ -21,13 +23,16 @@ class Events extends React.Component {
     super(props);
 
     this.handleChangeTab = this.handleChangeTab.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+
+    const until = new Date().getTime() / 1000;
+    const since = until - 1000 * 60 * 60 * 24 / 1000;
 
     this.state = {
       activeTab: 0,
       params: {
-        // since: 1466242481,
-        since: 1466852113,
-        until: 1466938513,
+        since: since,
+        until: until,
         // filters: [
         //   'event=start',
         //   'type=container'
@@ -61,6 +66,16 @@ class Events extends React.Component {
     this.props.filter(type);
   }
 
+  handleChangeDate(key, moment) {
+    this.setState(update(
+      this.state, {params: {[key]: {$set: moment.unix()}}}
+    ))
+  }
+
+  handleUpdate() {
+    this.props.fetchEvents(this.state.params);
+  }
+
   renderActiveTabContent() {
   }
 
@@ -83,21 +98,36 @@ class Events extends React.Component {
                   <Tab>Containers</Tab>
                   <Tab>Networks</Tab>
                 </Tabs>
-                <CardText>
-                  <DataTable selectable rowKeyColumn="id" rows={events}>
-                    <TableHeader name="Type" tooltip="tip">Type</TableHeader>
-                    <TableHeader name="Action" tooltip="tip">Action</TableHeader>
-                    <TableHeader name="status" tooltip="tip">Status</TableHeader>
+                <CardText style={{minHeight: '350px'}}>
+                  <div className="row mb-10">
+                    <div className="col-md-1" style={{width: '45px', paddingTop: '8px'}}>Since:
+                    </div>
+                    <div className="col-md-3">
+                      <DateTime defaultValue={this.state.params.since * 1000} onChange={this.handleChangeDate.bind(this, 'since')} />
+                    </div>
+                    <div className="col-md-1" style={{width: '40px', paddingTop: '8px'}}>Until:
+                    </div>
+                    <div className="col-md-3">
+                      <DateTime defaultValue={this.state.params.until * 1000} onChange={this.handleChangeDate.bind(this, 'until')} />
+                    </div>
+                    <div className="col-md3">
+                      <Button colored ripple onClick={this.handleUpdate}>Update</Button>
+                    </div>
+                  </div>
+                  <DataTable sortable rowKeyColumn="Id" rows={events}>
+                    <TableHeader name="Type">Type</TableHeader>
+                    <TableHeader name="Action">Action</TableHeader>
+                    <TableHeader name="status">Status</TableHeader>
                     <TableHeader name="time" cellFormatter={time => {
                       return (<TimeAgo date={time*1000} />);
-                    }} tooltip="tip">Time</TableHeader>
+                    }}>Time</TableHeader>
                     <TableHeader name="from" cellFormatter={from => {
                       return (<Link to={`/images/${from}`}>{from}</Link>);
-                    }} tooltip="tip">Image</TableHeader>
+                    }}>Image</TableHeader>
                     <TableHeader name="Actor" cellFormatter={actor => {
                       const {name} = actor.Attributes;
                       return (<Link to={`/containers/${name}`}>{name}</Link>);
-                    }} tooltip="tip">Name</TableHeader>
+                    }}>Name</TableHeader>
                   </DataTable>
                 </CardText>
                 <section>

@@ -1,7 +1,7 @@
 const initial = {
   isFetching: false,
-  daemon: {},
-  version: {}
+  daemon: null,
+  version: null
 };
 
 export default (state = initial, action) => {

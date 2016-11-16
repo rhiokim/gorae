@@ -1,21 +1,21 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import Helmet from 'react-helmet';
 
 import {
-  Layout, Grid, Header, Content, Tabs, Tab, Footer,
-  FooterSection, FooterLinkList, CardText, Card, Cell} from 'react-mdl';
+  Layout, Grid, Header, Content, Tabs, Tab, CardText, Card, Cell} from 'react-mdl';
 import {getColorClass, getTextColorClass} from 'react-mdl/lib/utils/palette';
 
-import Version from './Version';
+import {Version} from './Version';
 import DaemonDetail from './DaemonDetail';
 import * as Actions from '../../actions/daemon';
+import FooterBarSimple from '../FooterBarSimple';
 
-class Daemon extends Component {
-  constructor(...args) {
-    super(...args);
+class Daemon extends React.Component {
+  constructor(props) {
+    super(props);
 
     this.state = {
       activeTab: 0
@@ -29,16 +29,17 @@ class Daemon extends Component {
 
   renderActiveTabContent() {
     const {activeTab} = this.state;
+    const {daemon, version} = this.props
 
     switch (activeTab) {
       case 0: {
-        return (<Version info={this.props.version} />);
+        return version ? <Version {...version} /> : '';
       }
       case 1: {
-        return (<DaemonDetail info={this.props.daemon} />);
+        return daemon ? <DaemonDetail {...daemon} /> : '';
       }
       case 2: {
-        return (<div>remote api</div>);
+        return <div>remote api</div>;
       }
       default:
         break;
@@ -69,15 +70,7 @@ class Daemon extends Component {
                 </CardText>
               </Cell>
             </Grid>
-            <Footer size="mega">
-              <FooterSection type="bottom" logo="More Information">
-                <FooterLinkList>
-                  <a href="https://developers.google.com/web/starter-kit/">Web Starter Kit</a>
-                  <a href="#">Help</a>
-                  <a href="#">Privacy & Terms</a>
-                </FooterLinkList>
-              </FooterSection>
-            </Footer>
+            <FooterBarSimple />
           </Content>
         </Layout>
       </div>
