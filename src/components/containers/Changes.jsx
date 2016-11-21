@@ -22,7 +22,7 @@ class Changes extends React.Component {
             </tr>
           </thead>
           <tbody>
-          {changes.map((change, i) => {
+          {changes && changes.map((change, i) => {
             return <tr key={i}>
               <td>{change.Path}</td>
               <td>{change.Kind}</td>

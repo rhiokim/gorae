@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import Chart from 'd3-circle';
 
-import {
-  Grid, Cell } from 'react-mdl';
-
 import './circleChart.css';
 
 export default class CircleChart extends Component {
@@ -35,10 +32,10 @@ export default class CircleChart extends Component {
     //   duration: 600
     // });
 
-    this._a.render({ value: 0.3 });
-    this._b.render({ value: 0.3 });
-    this._c.render({ value: 0.3 });
-    this._d.render({ value: 0.3 });
+    this._a.render({ value: 0 });
+    this._b.render({ value: 0 });
+    this._c.render({ value: 0 });
+    this._d.render({ value: 0 });
     // this._c.render({ value: 0.3 });
   }
 
@@ -47,37 +44,36 @@ export default class CircleChart extends Component {
   }
 
   changeData = _ => {
-    this._a.update({ value: Math.random() });
-    this._b.update({ value: Math.random() });
-    this._c.update({ value: Math.random() });
-    this._d.update({ value: Math.random() });
-    // this._c.update({ value: Math.random() });
+    this._a.update({ value: Math.random() / 20 });
+    this._b.update({ value: Math.random() / 20 });
+    this._c.update({ value: Math.random() / 20 });
+    this._d.update({ value: Math.random() / 20 });
   }
 
   render() {
     return (
-      <Grid component="section" className="section--center" noSpacing>
-        <Cell col={3} className="chart-area">
-          <h3>CPU</h3>
-          <svg ref={a => this.a = a} className="chart"></svg>
-          <p>Chart default settings.</p>
-        </Cell>
-        <Cell col={3} className="chart-area">
-          <h3>CPU</h3>
-          <svg ref={b => this.b = b} className="chart"></svg>
-          <p>Chart default settings.</p>
-        </Cell>
-        <Cell col={3} className="chart-area">
-          <h3>CPU</h3>
-          <svg ref={c => this.c = c} className="chart"></svg>
-          <p>Chart default settings.</p>
-        </Cell>
-        <Cell col={3} className="chart-area">
-          <h3>Memory</h3>
-          <svg ref={d => this.d = d} className="chart"></svg>
-          <p>Chart default settings.</p>
-        </Cell>
-      </Grid>
+      <div className="row">
+        <div className="col-sm-3 text-center">
+          <h3>CPU0</h3>
+          <svg ref={a => this.a = a} className="chart center"></svg>
+          <p className="mt-10" style={{fontSize: '11px'}}>Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz.</p>
+        </div>
+        <div className="col-sm-3 text-center">
+          <h3>CPU1</h3>
+          <svg ref={b => this.b = b} className="chart center"></svg>
+          <p className="mt-10" style={{fontSize: '11px'}}>Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz.</p>
+        </div>
+        <div className="col-sm-3 text-center">
+          <h3>CPU2</h3>
+          <svg ref={c => this.c = c} className="chart center"></svg>
+          <p className="mt-10" style={{fontSize: '11px'}}>Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz.</p>
+        </div>
+        <div className="col-sm-3 text-center">
+          <h3>CPU3</h3>
+          <svg ref={d => this.d = d} className="chart center"></svg>
+          <p className="mt-10" style={{fontSize: '11px'}}>Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz.</p>
+        </div>
+      </div>
     );
   }
 }

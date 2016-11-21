@@ -1,32 +1,40 @@
 import React, {Component} from 'react';
 import {Sparklines, SparklinesLine, SparklinesBars,
   SparklinesSpots, SparklinesReferenceLine} from 'react-sparklines';
-import {
-  Grid, Cell } from 'react-mdl';
+import {Grid, Cell, CardText} from 'react-mdl';
+
+function calculateCPUPercent(stats) {
+    // Same algorithm the official client uses: https://github.com/docker/docker/blob/master/api/client/stats.go#L195-L208
+    var prevCpu = stats.precpu_stats;
+    var curCpu = stats.cpu_stats;
+
+    var cpuPercent = 0.0;
+
+    // calculate the change for the cpu usage of the container in between readings
+    var cpuDelta = curCpu.cpu_usage.total_usage - prevCpu.cpu_usage.total_usage;
+    // calculate the change for the entire system between readings
+    var systemDelta = curCpu.system_cpu_usage - prevCpu.system_cpu_usage;
+
+    if (systemDelta > 0.0 && cpuDelta > 0.0) {
+        cpuPercent = (cpuDelta / systemDelta) * curCpu.cpu_usage.percpu_usage.length * 100.0;
+    }
+    return cpuPercent;
+}
 
 export default class SparkLine extends Component {
 
   constructor(props) {
     super(props);
 
-    this.data = [];
-    this.state = { data: [
-      []
-    ] };
+    this.data = new Array(20).fill(0.0);
+    this.state = { data: this.data };
   }
 
   componentWillReceiveProps(nextProps) {
-    const {percpu_usage} = nextProps.cpu_usage;
-    const system_cpu_usage = nextProps.system_cpu_usage / 100000;
-    const {data} = this.state;
-    let newData = [];
-    percpu_usage.forEach((cpu, i) => {
-      newData[i] = newData[i] || [];
-      newData[i] = [ ...data[i] || [], (cpu / system_cpu_usage)];
-    });
-    this.setState({
-      data: newData
-    });
+    const res = calculateCPUPercent(nextProps);
+    this.data.push(Math.random());
+    console.log(res)
+    this.setState({data: this.data});
   }
 
   componentDidUpdate() {
@@ -39,24 +47,22 @@ export default class SparkLine extends Component {
   render() {
     const {data} = this.state;
     return (
-      <Grid component="section" className="section--center" noSpacing>
-        <Cell col={12}>
-          <Sparklines data={data[0]} width={500} height={80} limit={20}>
-            <SparklinesBars style={{ stroke: 'white', fill: '#41c3f9', fillOpacity: '.15' }} />
+      <div className="row">
+        <div className="col-md-6">
+          <h3>CPU</h3>
+          <Sparklines data={data} width={500} height={80} limit={20}>
             <SparklinesSpots />
-            <SparklinesReferenceLine type="avg" />
             <SparklinesLine style={{ strokeWidth: 2, stroke: 'rgba(0, 181, 241, 1)', fill: 'none' }} />
           </Sparklines>
-        </Cell>
-        <Cell col={12}>
-          <Sparklines data={data[0].reverse()} width={500} height={80} limit={20}>
-            <SparklinesBars style={{ stroke: 'white', fill: '#41c3f9', fillOpacity: '.15' }} />
+        </div>
+        <div className="col-md-6">
+          <h3>CPU</h3>
+          <Sparklines data={data} width={500} height={80} limit={20}>
             <SparklinesSpots />
-            <SparklinesReferenceLine type="avg" />
-            <SparklinesLine style={{ strokeWidth: 2, stroke: 'rgba(0, 181, 241, 1)', fill: 'none' }} />
+            <SparklinesLine style={{ strokeWidth: 1, stroke: 'rgba(0, 181, 241, 1)', fill: 'none' }} />
           </Sparklines>
-        </Cell>
-      </Grid>
+        </div>
+      </div>
     );
   }
 }

@@ -2,6 +2,9 @@
   /*border: 1px dotted #ddd;*/
 }
 
+.chart.center {
+  margin-left: 25%;
+}
 .chart .background {
   fill: RGB(230, 237, 244)
 }

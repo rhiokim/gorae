@@ -36,10 +36,8 @@ class Stats extends Component {
   renderActiveTabContent() {}
 
   render() {
-    const {precpu_stats} = this.props.stats;
     return (
       <div>
-        <SparkLine {...precpu_stats} />
         <CircleChart />
         <LineChart />
         <BarChart />
