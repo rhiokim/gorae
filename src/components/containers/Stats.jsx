@@ -6,7 +6,7 @@ import * as Actions from '../../actions/container';
 import CircleChart from './stats/circleChart';
 import LineChart from './stats/lineChart';
 import BarChart from './stats/barChart';
-import SparkLine from './stats/sparkline';
+// import SparkLine from './stats/sparkline';
 
 class Stats extends Component {
   constructor(...args) {

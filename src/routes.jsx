@@ -1,11 +1,11 @@
 import React from 'react';
-import {Route, IndexRoute, Redirect} from 'react-router';
+import {Route, IndexRoute} from 'react-router';
 
 import App from './containers/App';
 // import Home from './containers/Home';
 import Dashboard from './components/Dashboard';
 // import Images from './containers/images/Images';
-import Home from './containers/Home';
+// import Home from './containers/Home';
 import Images from './components/Images';
 import Nodes from './components/Nodes';
 import Contianers from './components/Containers';
@@ -20,24 +20,18 @@ import Volumes from './components/Volumes';
 import About from './containers/About';
 
 export default (
-  <Route path="/">
-    <IndexRoute component={Home} />
-    <Redirect from="images/:id" to="dashboard/images/:id" />
-    <Redirect from="containers/:id" to="dashboard/containers/:id" />
-    <Redirect from="network/:id" to="dashboard/network/:id" />
-    <Route path="dashboard" component={App}>
-      <IndexRoute component={Dashboard} />
-      <Route path="nodes" component={Nodes} />
-      <Route path="images" component={Images} />
-      <Route path="images/:id" component={ImageDetail} />
-      <Route path="containers" component={Contianers} />
-      <Route path="containers/:id" component={ContainerDetail} />
-      <Route path="networks" component={Networks} />
-      <Route path="network/:id" component={NetworkDetail} />
-      <Route path="daemon" component={Daemon} />
-      <Route path="events" component={Events} />
-      <Route path="volumes" component={Volumes} />
-    </Route>
+  <Route path="/" component={App}>
+    <IndexRoute component={Dashboard}/>
+    <Route path="nodes" component={Nodes} />
+    <Route path="images" component={Images} />
+    <Route path="images/:id" component={ImageDetail} />
+    <Route path="containers" component={Contianers} />
+    <Route path="containers/:id" component={ContainerDetail} />
+    <Route path="networks" component={Networks} />
+    <Route path="network/:id" component={NetworkDetail} />
+    <Route path="daemon" component={Daemon} />
+    <Route path="events" component={Events} />
+    <Route path="volumes" component={Volumes} />
     <Route path="/about" component={About} />
   </Route>
 );

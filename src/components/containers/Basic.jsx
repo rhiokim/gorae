@@ -73,7 +73,7 @@ class Basic extends React.Component {
             </tr>
             <tr>
               <td>Exposed Ports</td>
-              <td>{Object.keys(container.Config.ExposedPorts).join(', ')}</td>
+              <td>{container.Config.ExposedPorts && Object.keys(container.Config.ExposedPorts).join(', ')}</td>
             </tr>
             <tr>
               <td>Entrypoint</td>

@@ -7,31 +7,31 @@ import './SideBar.css';
 export const SideBar = props => (
   <Drawer title="Gorae">
     <Navigation>
-      <Link to="/dashboard">
+      <Link to="/">
         <Icon name="dashboard" /> Dashboard
       </Link>
     </Navigation>
     <Navigation>
       <span>RESOURCE</span>
-      <Link to="/dashboard/images">
+      <Link to="/images">
         <Icon name="apps" /> Images
       </Link>
-      <Link to="/dashboard/containers">
+      <Link to="/containers">
         <Icon name="event_note" /> Containers
       </Link>
-      <Link to="/dashboard/networks">
+      <Link to="/networks">
         <Icon name="event_note" /> Networks
       </Link>
-      <Link to="/dashboard/volumes">
+      <Link to="/volumes">
         <Icon name="event_note" /> Volumes
       </Link>
     </Navigation>
     <Navigation>
       <span>SETTINGS</span>
-      <Link to="/dashboard/events">
+      <Link to="/events">
         <Icon name="settings" /> Events Log
       </Link>
-      <Link to="/dashboard/daemon">
+      <Link to="/daemon">
         <Icon name="settings" /> Deamon
       </Link>
       <Link to="/swarm">

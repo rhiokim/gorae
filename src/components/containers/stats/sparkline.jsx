@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Sparklines, SparklinesLine, SparklinesBars,
-  SparklinesSpots, SparklinesReferenceLine} from 'react-sparklines';
-import {Grid, Cell, CardText} from 'react-mdl';
+import {Sparklines, SparklinesLine,
+  SparklinesSpots} from 'react-sparklines';
 
 function calculateCPUPercent(stats) {
     // Same algorithm the official client uses: https://github.com/docker/docker/blob/master/api/client/stats.go#L195-L208

@@ -17,13 +17,13 @@ export const HeaderBar = props => (
     </HeaderRow>
     <HeaderRow className="mdl-layout__header-second-menu">
       <Navigation>
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/dashboard/containers">Containers</Link>
-        <Link to="/dashboard/images">Images</Link>
-        <Link to="/dashboard/networks">Networks</Link>
-        <Link to="/dashboard/volumes">Volumes</Link>
-        <Link to="/dashboard/daemon">Daemon</Link>
-        <Link to="/dashboard/events">Events</Link>
+        <Link to="/">Dashboard</Link>
+        <Link to="/containers">Containers</Link>
+        <Link to="/images">Images</Link>
+        <Link to="/networks">Networks</Link>
+        <Link to="/volumes">Volumes</Link>
+        <Link to="/daemon">Daemon</Link>
+        <Link to="/events">Events</Link>
       </Navigation>
     </HeaderRow>
     <FABButton ripple colored accent mini className="mdl-shadow--4dp" id="add">
