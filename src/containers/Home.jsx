@@ -35,12 +35,28 @@ export default class Home extends React.Component {
   renderTabOverview() {
     return (
       <div>
+        <div className="row">
+          <div className="col-sm-6">
+            <Card>
+              <CardText>
+                <h4>Features</h4>
+                Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Nostrud in laboris labore nisi amet do dolor eu fugiat consectetur elit cillum esse.
+              </CardText>
+              <CardActions>
+                <Button href="#">Read our features</Button>
+              </CardActions>
+            </Card>
+          </div>
+          <div className="col-sm-6">
+          </div>
+        </div>
         <Helmet title="Home" />
         <Grid component="section" className="section--center mb-20" shadow={0} noSpacing>
           <Cell component="header" col={3} tablet={2} phone={4} className={classNames('section__play-btn', getColorClass('teal', 100), getTextColorClass('white'))}>
             <Icon name="play_circle_filled" />
           </Cell>
           <Cell component={Card} col={9} tablet={6} phone={4}>
+
             <CardText>
               <h4>Features</h4>
               Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Nostrud in laboris labore nisi amet do dolor eu fugiat consectetur elit cillum esse.
