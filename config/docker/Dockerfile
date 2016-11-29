@@ -1,6 +1,6 @@
 FROM mhart/alpine-node:6
 # FROM node:latest
-MAINTAINER [Rhio Kim <rhio.kim@gmail.com>
+MAINTAINER [Rhio Kim <rhio.kim@gmail.com>]
 
 #copy package first to cache npm-install and speed up build
 COPY server server
