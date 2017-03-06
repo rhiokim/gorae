@@ -1,31 +1,16 @@
-# Gorae
 
-* Go to the directory where certificates for your Machine are stored. In my case, this is
+# [![](media/Gorae.001.png)](https://github.com/rhiokim/gorae)
 
-```
-.docker/machine/machines/couchbase directory.
-```
+The `gorae` project is web interface solution for docker related products such as DDC, DC/OS of Mesosphere using modern web technologies.
 
-* Generate *.p12 format for the certificate:
+Actually, this project consists of four seperated products.
 
-```
-openssl pkcs12 -export \
--inkey key.pem \
--in cert.pem \
--CAfile ca.pem \
--chain \
--name client-side \
--out cert.p12 \
--password pass:mypass
-```
+* Gorae for Docker engine
+* Gorae Swarm for Orchestration and Continuous Deployment on Docker Swarm
+* Gorae Registry for Docker Distribution
+* Gorae Pipe for Pipeline between DVCS and Gorae Swarm (exactly Docker Swarm)
 
-```
-curl https://192.168.99.100:2376/images/json --cert $DOCKER_CERT_PATH/cert.p12 --pass mypass --key $DOCKER_CERT_PATH/key.pem --cacert $DOCKER_CERT_PATH/ca.pem
-```
-
-## How to run after build
-```
-```
+And even these are made of docker image. It means, if you want to run this project on your machine and own system. You just run `docker run` command
 
 ### References
 - https://docs.docker.com/engine/reference/api/docker_remote_api/
