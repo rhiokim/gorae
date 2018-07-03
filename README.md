@@ -16,7 +16,7 @@ And even these are made of docker image. It means, if you want to run this proje
 ![](media/Gorae.002.png)
 
 ## Gorae CI/CD
-![](meida/Gorae.003.png)
+![](media/Gorae.003.png)
 
 ### References
 - https://docs.docker.com/engine/reference/api/docker_remote_api/
