@@ -12,6 +12,12 @@ Actually, this project consists of four seperated products.
 
 And even these are made of docker image. It means, if you want to run this project on your machine and own system. You just run `docker run` command
 
+## Gorae Pipe
+![](media/Gorae.002.png)
+
+## Gorae CI/CD
+![](meida/Gorae.003.png)
+
 ### References
 - https://docs.docker.com/engine/reference/api/docker_remote_api/
 - http://blog.couchbase.com/2016/february/enabling-docker-remote-api-docker-machine-mac-osx
